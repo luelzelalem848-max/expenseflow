@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ExpenseFlow — Personal Expense Tracker</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+</head>
+<body>
+  <div class="app">
+    <!-- Header -->
+    <header class="header">
+      <h1>💸 ExpenseFlow</h1>
+      <p class="tagline">Track your spending. Own your budget.</p>
+    </header>
+
+    <!-- Summary Cards -->
+    <section class="cards">
+      <div class="card">
+        <span class="card-label">Total Spent</span>
+        <span class="card-value" id="totalSpent">$0.00</span>
+      </div>
+      <div class="card">
+        <span class="card-label">Entries</span>
+        <span class="card-value" id="entryCount">0</span>
+      </div>
+      <div class="card">
+        <span class="card-label">This Month</span>
+        <span class="card-value" id="monthSpent">$0.00</span>
+      </div>
+    </section>
+
+    <!-- Add Expense Form -->
+    <section class="form-section">
+      <h2>Add Expense</h2>
+      <form id="expenseForm" class="expense-form">
+        <input type="text" id="description" placeholder="Description (e.g. Coffee)" required />
+        <input type="number" id="amount" placeholder="Amount ($)" step="0.01" min="0.01" required />
+        <select id="category" required>
+          <option value="">Category</option>
+          <option value="Food">🍔 Food</option>
+          <option value="Transport">🚗 Transport</option>
+          <option value="Shopping">🛍️ Shopping</option>
+          <option value="Bills">📄 Bills</option>
+          <option value="Entertainment">🎬 Entertainment</option>
+          <option value="Health">🏥 Health</option>
+          <option value="Other">📦 Other</option>
+        </select>
+        <button type="submit" class="btn-add">Add</button>
+      </form>
+    </section>
+
+    <!-- Chart + List -->
+    <div class="main-grid">
+      <section class="chart-section">
+        <h2>Spending by Category</h2>
+        <div class="chart-wrap">
+          <canvas id="categoryChart"></canvas>
+        </div>
+      </section>
+
+      <section class="list-section">
+        <h2>Recent Expenses</h2>
+        <ul id="expenseList" class="expense-list">
+          <li class="empty-state">No expenses yet. Add one above! 👆</li>
+        </ul>
+      </section>
+    </div>
+
+    <footer class="footer">
+      <p>Made with 💙 — <a href="https://github.com/" target="_blank">View on GitHub</a></p>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
