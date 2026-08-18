@@ -163,14 +163,14 @@ body {
 
 .form-section h2,
 .chart-section h2,
-.list-section h2 {
+.list-header h2 {
   font-size: 1.1rem;
   margin-bottom: 14px;
 }
 
 .expense-form {
   display: grid;
-  grid-template-columns: 2fr 1fr 1.2fr auto;
+  grid-template-columns: 2fr 1fr 1.5fr auto;
   gap: 10px;
 }
 
@@ -226,6 +226,36 @@ body {
 .chart-wrap {
   position: relative;
   height: 240px;
+}
+
+/* ====== List Header + PDF Button ====== */
+.list-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+
+.list-header h2 {
+  margin-bottom: 0;
+}
+
+.btn-pdf {
+  background: var(--surface-light);
+  color: var(--text);
+  border: 1px solid var(--surface-light);
+  border-radius: 10px;
+  padding: 8px 14px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.btn-pdf:hover {
+  background: var(--primary);
+  color: #fff;
+  border-color: var(--primary);
 }
 
 /* ====== Expense List ====== */
@@ -335,5 +365,11 @@ body {
 
   .header-top {
     justify-content: center;
+  }
+
+  .list-header {
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
   }
 }

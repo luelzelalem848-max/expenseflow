@@ -1,4 +1,4 @@
-// ====== ExpenseFlow — App Logic (v2: Currency + Dark/Light Mode) ======
+// ====== ExpenseFlow — App Logic (v3: Commas, More Categories, PDF Export) ======
 
 const STORAGE_KEY = 'expenseflow_data';
 const THEME_KEY = 'expenseflow_theme';
@@ -20,12 +20,20 @@ const currencies = {
   KES: { symbol: 'KSh', label: 'KES' },
   BRL: { symbol: 'R$', label: 'BRL' },
   CAD: { symbol: 'C$', label: 'CAD' },
-  AUD: { symbol: 'A$', label: 'AUD' }
+  AUD: { symbol: 'A$', label: 'AUD' },
+  ZAR: { symbol: 'R', label: 'ZAR' },
+  EGP: { symbol: 'E£', label: 'EGP' },
+  GHS: { symbol: '₵', label: 'GHS' },
+  UGX: { symbol: 'USh', label: 'UGX' },
+  TZS: { symbol: 'TSh', label: 'TZS' },
+  RWF: { symbol: 'FRw', label: 'RWF' },
+  AED: { symbol: 'AED', label: 'AED' },
+  SAR: { symbol: 'SAR', label: 'SAR' }
 };
 
 let currentCurrency = 'USD';
 
-// ---- Load currency from localStorage ----
+// ---- Load currency ----
 function loadCurrency() {
   const saved = localStorage.getItem(CURRENCY_KEY);
   if (saved && currencies[saved]) {
@@ -34,28 +42,26 @@ function loadCurrency() {
   document.getElementById('currencySelect').value = currentCurrency;
 }
 
-// ---- Save currency to localStorage ----
+// ---- Save currency ----
 function saveCurrency() {
   localStorage.setItem(CURRENCY_KEY, currentCurrency);
 }
 
-// ---- Format money with selected currency ----
+// ---- Format money with commas ----
 function formatMoney(amount) {
   const c = currencies[currentCurrency];
-  // JPY doesn't use decimals
   if (currentCurrency === 'JPY') {
-    return c.symbol + Math.round(amount).toLocaleString();
+    return c.symbol + Math.round(amount).toLocaleString('en-US');
   }
-  return c.symbol + amount.toFixed(2);
+  return c.symbol + amount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 }
 
-// ---- Theme: Load ----
+// ---- Theme ----
 function loadTheme() {
   const saved = localStorage.getItem(THEME_KEY) || 'dark';
   applyTheme(saved);
 }
 
-// ---- Theme: Apply ----
 function applyTheme(theme) {
   document.documentElement.setAttribute('data-theme', theme);
   const icon = document.getElementById('themeIcon');
@@ -64,13 +70,11 @@ function applyTheme(theme) {
   } else {
     icon.textContent = '☀️';
   }
-  // Re-render chart with updated colors
   if (expenses.length > 0) {
     renderChart();
   }
 }
 
-// ---- Theme: Toggle ----
 function toggleTheme() {
   const current = document.documentElement.getAttribute('data-theme');
   const newTheme = current === 'light' ? 'dark' : 'light';
@@ -78,7 +82,7 @@ function toggleTheme() {
   localStorage.setItem(THEME_KEY, newTheme);
 }
 
-// ---- Load expenses from localStorage ----
+// ---- Load expenses ----
 function loadExpenses() {
   const saved = localStorage.getItem(STORAGE_KEY);
   if (saved) {
@@ -90,35 +94,41 @@ function loadExpenses() {
   }
 }
 
-// ---- Save expenses to localStorage ----
+// ---- Save expenses ----
 function saveExpenses() {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(expenses));
 }
 
-// ---- Category emoji ----
+// ---- Category emoji map (covers all new categories) ----
 const categoryEmoji = {
-  Food: '🍔',
-  Transport: '🚗',
-  Shopping: '🛍️',
-  Bills: '📄',
-  Entertainment: '🎬',
-  Health: '🏥',
-  Other: '📦'
+  'Food': '🍔', 'Groceries': '🛒', 'Restaurants': '🍽️', 'Coffee': '☕',
+  'Drinks': '🍺', 'Snacks': '🍫',
+  'Transport': '🚗', 'Fuel': '⛽', 'Public Transport': '🚌', 'Taxi/Ride': '🚕',
+  'Parking': '🅿️', 'Vehicle Maintenance': '🔧',
+  'Shopping': '🛍️', 'Clothing': '👕', 'Electronics': '📱', 'Home': '🏠', 'Gifts': '🎁',
+  'Bills': '📄', 'Rent': '🏠', 'Electricity': '⚡', 'Water': '💧', 'Internet': '🌐',
+  'Phone': '📱', 'Insurance': '🛡️', 'Subscriptions': '🔁',
+  'Entertainment': '🎬', 'Movies': '🎥', 'Music': '🎵', 'Games': '🎮',
+  'Sports': '⚽', 'Travel': '✈️', 'Hobbies': '🎨',
+  'Health': '🏥', 'Medicine': '💊', 'Doctor': '👨‍⚕️', 'Dental': '🦷',
+  'Gym': '💪', 'Mental Health': '🧠',
+  'Education': '🎓', 'Tuition': '🏫', 'Books': '📚', 'Courses': '💻',
+  'Personal Care': '💄', 'Haircut': '✂️', 'Kids': '🧒', 'Pets': '🐾',
+  'Charity': '❤️',
+  'Other': '📦', 'Business': '💼', 'Fees': '🏦', 'Taxes': '🏛️'
 };
 
-// ---- Get theme-aware colors for chart ----
+// ---- Chart colors ----
 function getChartColors() {
   const isLight = document.documentElement.getAttribute('data-theme') === 'light';
-  return {
-    legendColor: isLight ? '#64748b' : '#94a3b8'
-  };
+  return { legendColor: isLight ? '#64748b' : '#94a3b8' };
 }
 
-// ---- Render summary cards ----
+// ---- Render summary ----
 function renderSummary() {
   const total = expenses.reduce((sum, e) => sum + e.amount, 0);
   document.getElementById('totalSpent').textContent = formatMoney(total);
-  document.getElementById('entryCount').textContent = expenses.length;
+  document.getElementById('entryCount').textContent = expenses.length.toLocaleString('en-US');
 
   const now = new Date();
   const monthTotal = expenses
@@ -130,7 +140,7 @@ function renderSummary() {
   document.getElementById('monthSpent').textContent = formatMoney(monthTotal);
 }
 
-// ---- Render expense list ----
+// ---- Render list ----
 function renderList() {
   const ul = document.getElementById('expenseList');
   if (expenses.length === 0) {
@@ -138,73 +148,39 @@ function renderList() {
     return;
   }
 
-  ul.innerHTML = expenses
-    .slice()
-    .reverse()
-    .map(e => `
-      <li>
-        <div class="expense-info">
-          <span class="expense-desc">${categoryEmoji[e.category] || '📦'} ${escapeHtml(e.description)}</span>
-          <span class="expense-meta">${e.category} · ${formatDate(e.date)}</span>
-        </div>
-        <div style="display:flex;align-items:center;gap:8px;">
-          <span class="expense-amount">${formatMoney(e.amount)}</span>
-          <button class="btn-delete" onclick="deleteExpense('${e.id}')" title="Delete">✕</button>
-        </div>
-      </li>
-    `)
-    .join('');
+  ul.innerHTML = expenses.slice().reverse().map(e => `
+    <li>
+      <div class="expense-info">
+        <span class="expense-desc">${categoryEmoji[e.category] || '📦'} ${escapeHtml(e.description)}</span>
+        <span class="expense-meta">${e.category} · ${formatDate(e.date)}</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <span class="expense-amount">${formatMoney(e.amount)}</span>
+        <button class="btn-delete" onclick="deleteExpense('${e.id}')" title="Delete">✕</button>
+      </div>
+    </li>
+  `).join('');
 }
 
 // ---- Render chart ----
 function renderChart() {
   const ctx = document.getElementById('categoryChart').getContext('2d');
-
   const byCategory = {};
-  expenses.forEach(e => {
-    byCategory[e.category] = (byCategory[e.category] || 0) + e.amount;
-  });
-
+  expenses.forEach(e => { byCategory[e.category] = (byCategory[e.category] || 0) + e.amount; });
   const labels = Object.keys(byCategory);
   const data = Object.values(byCategory);
-
-  const colors = [
-    '#6366f1', '#22c55e', '#f59e0b', '#ef4444',
-    '#3b82f6', '#ec4899', '#a855f7'
-  ];
+  const colors = ['#6366f1', '#22c55e', '#f59e0b', '#ef4444', '#3b82f6', '#ec4899', '#a855f7', '#14b8a6', '#f97316', '#8b5cf6', '#06b6d4', '#84cc16'];
 
   if (chart) chart.destroy();
-
-  if (labels.length === 0) {
-    chart = null;
-    return;
-  }
+  if (labels.length === 0) { chart = null; return; }
 
   const chartColors = getChartColors();
-
   chart = new Chart(ctx, {
     type: 'doughnut',
-    data: {
-      labels: labels,
-      datasets: [{
-        data: data,
-        backgroundColor: colors.slice(0, labels.length),
-        borderWidth: 0
-      }]
-    },
+    data: { labels, datasets: [{ data, backgroundColor: colors.slice(0, labels.length), borderWidth: 0 }] },
     options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: {
-        legend: {
-          position: 'bottom',
-          labels: {
-            color: chartColors.legendColor,
-            font: { size: 11 },
-            padding: 12
-          }
-        }
-      }
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { position: 'bottom', labels: { color: chartColors.legendColor, font: { size: 11 }, padding: 12 } } }
     }
   });
 }
@@ -213,9 +189,7 @@ function renderChart() {
 function addExpense(description, amount, category) {
   const expense = {
     id: Date.now().toString() + Math.random().toString(36).slice(2, 6),
-    description,
-    amount: parseFloat(amount),
-    category,
+    description, amount: parseFloat(amount), category,
     date: new Date().toISOString()
   };
   expenses.push(expense);
@@ -230,7 +204,67 @@ function deleteExpense(id) {
   renderAll();
 }
 
-// ---- Render everything ----
+// ---- Download PDF ----
+function downloadPDF() {
+  if (expenses.length === 0) {
+    alert('No expenses to download. Add some first! 👆');
+    return;
+  }
+
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
+  const c = currencies[currentCurrency];
+
+  // Title
+  doc.setFontSize(20);
+  doc.setTextColor(99, 102, 241);
+  doc.text('ExpenseFlow — Expense Report', 14, 22);
+
+  // Date generated
+  doc.setFontSize(10);
+  doc.setTextColor(120, 120, 120);
+  doc.text('Generated: ' + new Date().toLocaleString('en-US'), 14, 30);
+
+  // Summary line
+  const total = expenses.reduce((sum, e) => sum + e.amount, 0);
+  doc.setFontSize(12);
+  doc.setTextColor(40, 40, 40);
+  doc.text(`Total Expenses: ${formatMoney(total)}  |  Entries: ${expenses.length}  |  Currency: ${c.label}`, 14, 40);
+
+  // Table
+  const tableData = expenses.slice().reverse().map((e, i) => [
+    i + 1,
+    e.description,
+    e.category,
+    formatDate(e.date),
+    formatMoney(e.amount)
+  ]);
+
+  doc.autoTable({
+    head: [['#', 'Description', 'Category', 'Date', 'Amount']],
+    body: tableData,
+    startY: 48,
+    theme: 'striped',
+    headStyles: { fillColor: [99, 102, 241], textColor: 255, fontSize: 11 },
+    bodyStyles: { fontSize: 10 },
+    alternateRowStyles: { fillColor: [241, 245, 249] },
+    columnStyles: {
+      0: { cellWidth: 12 },
+      4: { halign: 'right' }
+    }
+  });
+
+  // Footer total
+  const finalY = doc.lastAutoTable.finalY + 10;
+  doc.setFontSize(12);
+  doc.setTextColor(99, 102, 241);
+  doc.text(`Total: ${formatMoney(total)}`, 14, finalY);
+
+  // Save
+  doc.save(`expenseflow-report-${new Date().toISOString().slice(0, 10)}.pdf`);
+}
+
+// ---- Render all ----
 function renderAll() {
   renderSummary();
   renderList();
@@ -246,37 +280,31 @@ function escapeHtml(text) {
 
 function formatDate(iso) {
   const d = new Date(iso);
-  return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+  return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
 }
 
 // ---- Event Listeners ----
-
-// Form submit
 document.getElementById('expenseForm').addEventListener('submit', function (e) {
   e.preventDefault();
   const desc = document.getElementById('description').value.trim();
   const amount = document.getElementById('amount').value;
   const category = document.getElementById('category').value;
-
   if (!desc || !amount || !category) return;
-
   addExpense(desc, amount, category);
-
   document.getElementById('description').value = '';
   document.getElementById('amount').value = '';
   document.getElementById('category').value = '';
   document.getElementById('description').focus();
 });
 
-// Currency change
 document.getElementById('currencySelect').addEventListener('change', function (e) {
   currentCurrency = e.target.value;
   saveCurrency();
   renderAll();
 });
 
-// Theme toggle
 document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+document.getElementById('downloadPdf').addEventListener('click', downloadPDF);
 
 // ---- Init ----
 loadTheme();
