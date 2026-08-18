@@ -1,11 +1,84 @@
-// ====== ExpenseFlow — App Logic ======
+// ====== ExpenseFlow — App Logic (v2: Currency + Dark/Light Mode) ======
 
 const STORAGE_KEY = 'expenseflow_data';
+const THEME_KEY = 'expenseflow_theme';
+const CURRENCY_KEY = 'expenseflow_currency';
 
 let expenses = [];
 let chart = null;
 
-// ---- Load from localStorage ----
+// ---- Currency definitions ----
+const currencies = {
+  USD: { symbol: '$', label: 'USD' },
+  EUR: { symbol: '€', label: 'EUR' },
+  GBP: { symbol: '£', label: 'GBP' },
+  ETB: { symbol: 'Br', label: 'ETB' },
+  JPY: { symbol: '¥', label: 'JPY' },
+  INR: { symbol: '₹', label: 'INR' },
+  CNY: { symbol: '¥', label: 'CNY' },
+  NGN: { symbol: '₦', label: 'NGN' },
+  KES: { symbol: 'KSh', label: 'KES' },
+  BRL: { symbol: 'R$', label: 'BRL' },
+  CAD: { symbol: 'C$', label: 'CAD' },
+  AUD: { symbol: 'A$', label: 'AUD' }
+};
+
+let currentCurrency = 'USD';
+
+// ---- Load currency from localStorage ----
+function loadCurrency() {
+  const saved = localStorage.getItem(CURRENCY_KEY);
+  if (saved && currencies[saved]) {
+    currentCurrency = saved;
+  }
+  document.getElementById('currencySelect').value = currentCurrency;
+}
+
+// ---- Save currency to localStorage ----
+function saveCurrency() {
+  localStorage.setItem(CURRENCY_KEY, currentCurrency);
+}
+
+// ---- Format money with selected currency ----
+function formatMoney(amount) {
+  const c = currencies[currentCurrency];
+  // JPY doesn't use decimals
+  if (currentCurrency === 'JPY') {
+    return c.symbol + Math.round(amount).toLocaleString();
+  }
+  return c.symbol + amount.toFixed(2);
+}
+
+// ---- Theme: Load ----
+function loadTheme() {
+  const saved = localStorage.getItem(THEME_KEY) || 'dark';
+  applyTheme(saved);
+}
+
+// ---- Theme: Apply ----
+function applyTheme(theme) {
+  document.documentElement.setAttribute('data-theme', theme);
+  const icon = document.getElementById('themeIcon');
+  if (theme === 'light') {
+    icon.textContent = '🌙';
+  } else {
+    icon.textContent = '☀️';
+  }
+  // Re-render chart with updated colors
+  if (expenses.length > 0) {
+    renderChart();
+  }
+}
+
+// ---- Theme: Toggle ----
+function toggleTheme() {
+  const current = document.documentElement.getAttribute('data-theme');
+  const newTheme = current === 'light' ? 'dark' : 'light';
+  applyTheme(newTheme);
+  localStorage.setItem(THEME_KEY, newTheme);
+}
+
+// ---- Load expenses from localStorage ----
 function loadExpenses() {
   const saved = localStorage.getItem(STORAGE_KEY);
   if (saved) {
@@ -17,17 +90,12 @@ function loadExpenses() {
   }
 }
 
-// ---- Save to localStorage ----
+// ---- Save expenses to localStorage ----
 function saveExpenses() {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(expenses));
 }
 
-// ---- Format currency ----
-function formatMoney(amount) {
-  return '$' + amount.toFixed(2);
-}
-
-// ---- Get category emoji ----
+// ---- Category emoji ----
 const categoryEmoji = {
   Food: '🍔',
   Transport: '🚗',
@@ -37,6 +105,14 @@ const categoryEmoji = {
   Health: '🏥',
   Other: '📦'
 };
+
+// ---- Get theme-aware colors for chart ----
+function getChartColors() {
+  const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+  return {
+    legendColor: isLight ? '#64748b' : '#94a3b8'
+  };
+}
 
 // ---- Render summary cards ----
 function renderSummary() {
@@ -84,7 +160,6 @@ function renderList() {
 function renderChart() {
   const ctx = document.getElementById('categoryChart').getContext('2d');
 
-  // Group by category
   const byCategory = {};
   expenses.forEach(e => {
     byCategory[e.category] = (byCategory[e.category] || 0) + e.amount;
@@ -105,6 +180,8 @@ function renderChart() {
     return;
   }
 
+  const chartColors = getChartColors();
+
   chart = new Chart(ctx, {
     type: 'doughnut',
     data: {
@@ -122,7 +199,7 @@ function renderChart() {
         legend: {
           position: 'bottom',
           labels: {
-            color: '#94a3b8',
+            color: chartColors.legendColor,
             font: { size: 11 },
             padding: 12
           }
@@ -172,7 +249,9 @@ function formatDate(iso) {
   return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
 }
 
-// ---- Form submit ----
+// ---- Event Listeners ----
+
+// Form submit
 document.getElementById('expenseForm').addEventListener('submit', function (e) {
   e.preventDefault();
   const desc = document.getElementById('description').value.trim();
@@ -183,13 +262,24 @@ document.getElementById('expenseForm').addEventListener('submit', function (e) {
 
   addExpense(desc, amount, category);
 
-  // Reset form
   document.getElementById('description').value = '';
   document.getElementById('amount').value = '';
   document.getElementById('category').value = '';
   document.getElementById('description').focus();
 });
 
+// Currency change
+document.getElementById('currencySelect').addEventListener('change', function (e) {
+  currentCurrency = e.target.value;
+  saveCurrency();
+  renderAll();
+});
+
+// Theme toggle
+document.getElementById('themeToggle').addEventListener('click', toggleTheme);
+
 // ---- Init ----
+loadTheme();
+loadCurrency();
 loadExpenses();
 renderAll();

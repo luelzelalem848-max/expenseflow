@@ -11,7 +11,30 @@
   <div class="app">
     <!-- Header -->
     <header class="header">
-      <h1>💸 ExpenseFlow</h1>
+      <div class="header-top">
+        <h1>💸 ExpenseFlow</h1>
+        <div class="header-controls">
+          <!-- Currency Selector -->
+          <select id="currencySelect" class="currency-select" title="Select currency">
+            <option value="USD">🇺🇸 USD ($)</option>
+            <option value="EUR">🇪🇺 EUR (€)</option>
+            <option value="GBP">🇬🇧 GBP (£)</option>
+            <option value="ETB">🇪🇹 ETB (Br)</option>
+            <option value="JPY">🇯🇵 JPY (¥)</option>
+            <option value="INR">🇮🇳 INR (₹)</option>
+            <option value="CNY">🇨🇳 CNY (¥)</option>
+            <option value="NGN">🇳🇬 NGN (₦)</option>
+            <option value="KES">🇰🇪 KES (KSh)</option>
+            <option value="BRL">🇧🇷 BRL (R$)</option>
+            <option value="CAD">🇨🇦 CAD (C$)</option>
+            <option value="AUD">🇦🇺 AUD (A$)</option>
+          </select>
+          <!-- Theme Toggle -->
+          <button id="themeToggle" class="theme-toggle" title="Toggle dark/light mode">
+            <span id="themeIcon">🌙</span>
+          </button>
+        </div>
+      </div>
       <p class="tagline">Track your spending. Own your budget.</p>
     </header>
 
@@ -36,7 +59,7 @@
       <h2>Add Expense</h2>
       <form id="expenseForm" class="expense-form">
         <input type="text" id="description" placeholder="Description (e.g. Coffee)" required />
-        <input type="number" id="amount" placeholder="Amount ($)" step="0.01" min="0.01" required />
+        <input type="number" id="amount" placeholder="Amount" step="0.01" min="0.01" required />
         <select id="category" required>
           <option value="">Category</option>
           <option value="Food">🍔 Food</option>
@@ -69,7 +92,7 @@
     </div>
 
     <footer class="footer">
-      <p>Made with 💙 — <a href="https://github.com/" target="_blank">View on GitHub</a></p>
+      <p>Made with 💙 — <a href="https://github.com/luelzelalem848-max/expenseflow" target="_blank">View on GitHub</a></p>
     </footer>
   </div>
 

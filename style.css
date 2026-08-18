@@ -5,6 +5,7 @@
   box-sizing: border-box;
 }
 
+/* ====== Dark Theme (default) ====== */
 :root {
   --primary: #6366f1;
   --primary-dark: #4f46e5;
@@ -17,6 +18,23 @@
   --success: #22c55e;
   --radius: 14px;
   --shadow: 0 4px 24px rgba(0, 0, 0, 0.25);
+  --input-bg: #0f172a;
+}
+
+/* ====== Light Theme ====== */
+[data-theme="light"] {
+  --primary: #6366f1;
+  --primary-dark: #4f46e5;
+  --bg: #f1f5f9;
+  --surface: #ffffff;
+  --surface-light: #e2e8f0;
+  --text: #0f172a;
+  --text-muted: #64748b;
+  --danger: #ef4444;
+  --success: #22c55e;
+  --radius: 14px;
+  --shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+  --input-bg: #f8fafc;
 }
 
 body {
@@ -25,6 +43,7 @@ body {
   color: var(--text);
   min-height: 100vh;
   line-height: 1.6;
+  transition: background 0.3s ease, color 0.3s ease;
 }
 
 .app {
@@ -39,15 +58,66 @@ body {
   margin-bottom: 28px;
 }
 
+.header-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
 .header h1 {
   font-size: 2.2rem;
   font-weight: 800;
   letter-spacing: -1px;
 }
 
+.header-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.currency-select {
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--surface-light);
+  border-radius: 10px;
+  padding: 8px 10px;
+  font-size: 0.88rem;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.currency-select:hover {
+  border-color: var(--primary);
+}
+
+.theme-toggle {
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--surface-light);
+  border-radius: 10px;
+  width: 42px;
+  height: 42px;
+  font-size: 1.3rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.theme-toggle:hover {
+  border-color: var(--primary);
+  background: var(--surface-light);
+}
+
 .tagline {
   color: var(--text-muted);
   font-size: 0.95rem;
+  margin-top: 4px;
 }
 
 /* ====== Summary Cards ====== */
@@ -64,6 +134,7 @@ body {
   padding: 18px 14px;
   text-align: center;
   box-shadow: var(--shadow);
+  transition: background 0.3s ease;
 }
 
 .card-label {
@@ -87,6 +158,7 @@ body {
   padding: 20px;
   margin-bottom: 24px;
   box-shadow: var(--shadow);
+  transition: background 0.3s ease;
 }
 
 .form-section h2,
@@ -104,7 +176,7 @@ body {
 
 .expense-form input,
 .expense-form select {
-  background: var(--bg);
+  background: var(--input-bg);
   border: 1px solid var(--surface-light);
   color: var(--text);
   border-radius: 10px;
@@ -148,6 +220,7 @@ body {
   border-radius: var(--radius);
   padding: 20px;
   box-shadow: var(--shadow);
+  transition: background 0.3s ease;
 }
 
 .chart-wrap {
@@ -167,11 +240,12 @@ body {
   align-items: center;
   justify-content: space-between;
   padding: 10px 12px;
-  background: var(--bg);
+  background: var(--input-bg);
   border-radius: 10px;
   margin-bottom: 8px;
   font-size: 0.9rem;
   animation: slideIn 0.25s ease;
+  transition: background 0.3s ease;
 }
 
 .expense-list li.empty-state {
@@ -257,5 +331,9 @@ body {
 
   .header h1 {
     font-size: 1.7rem;
+  }
+
+  .header-top {
+    justify-content: center;
   }
 }
