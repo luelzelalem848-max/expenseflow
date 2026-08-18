@@ -16,7 +16,7 @@
       <div class="header-top">
         <h1>💸 ExpenseFlow</h1>
         <div class="header-controls">
-          <!-- Currency Selector -->
+          <button id="profileBtn" class="header-btn" title="Set your name for PDF signature">👤 Name</button>
           <select id="currencySelect" class="currency-select" title="Select currency">
             <option value="USD">🇺🇸 USD ($)</option>
             <option value="EUR">🇪🇺 EUR (€)</option>
@@ -24,23 +24,12 @@
             <option value="ETB">🇪🇹 ETB (Br)</option>
             <option value="JPY">🇯🇵 JPY (¥)</option>
             <option value="INR">🇮🇳 INR (₹)</option>
-            <option value="CNY">🇨🇳 CNY (¥)</option>
-            <option value="NGN">🇳🇬 NGN (₦)</option>
             <option value="KES">🇰🇪 KES (KSh)</option>
-            <option value="BRL">🇧🇷 BRL (R$)</option>
-            <option value="CAD">🇨🇦 CAD (C$)</option>
-            <option value="AUD">🇦🇺 AUD (A$)</option>
-            <option value="ZAR">🇿🇦 ZAR (R)</option>
-            <option value="EGP">🇪🇬 EGP (£E)</option>
-            <option value="GHS">🇬🇭 GHS (₵)</option>
-            <option value="UGX">🇺🇬 UGX (USh)</option>
-            <option value="TZS">🇹🇿 TZS (TSh)</option>
-            <option value="RWF">🇷🇼 RWF (FRw)</option>
+            <option value="NGN">🇳🇬 NGN (₦)</option>
             <option value="AED">🇦🇪 AED (د.إ)</option>
             <option value="SAR">🇸🇦 SAR (﷼)</option>
           </select>
-          <!-- Theme Toggle -->
-          <button id="themeToggle" class="theme-toggle" title="Toggle dark/light mode">
+          <button id="themeToggle" class="header-btn" title="Toggle dark/light mode">
             <span id="themeIcon">🌙</span>
           </button>
         </div>
@@ -48,19 +37,73 @@
       <p class="tagline">Track your spending. Own your budget.</p>
     </header>
 
-    <!-- Summary Cards -->
-    <section class="cards">
-      <div class="card">
-        <span class="card-label">Total Spent</span>
-        <span class="card-value" id="totalSpent">$0.00</span>
+    <!-- Stats Dashboard -->
+    <section class="stats-dashboard">
+      <div class="stat-row">
+        <div class="stat-card primary">
+          <span class="stat-icon">💰</span>
+          <span class="stat-label">Total Spent</span>
+          <span class="stat-value" id="totalSpent">$0.00</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-icon">📊</span>
+          <span class="stat-label">Entries</span>
+          <span class="stat-value" id="entryCount">0</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-icon">📅</span>
+          <span class="stat-label">This Month</span>
+          <span class="stat-value" id="monthSpent">$0.00</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-icon">📉</span>
+          <span class="stat-label">Avg / Entry</span>
+          <span class="stat-value" id="avgSpent">$0.00</span>
+        </div>
       </div>
-      <div class="card">
-        <span class="card-label">Entries</span>
-        <span class="card-value" id="entryCount">0</span>
+      <div class="stat-row">
+        <div class="stat-card accent-green">
+          <span class="stat-icon">🏆</span>
+          <span class="stat-label">Biggest Expense</span>
+          <span class="stat-value sm" id="biggestExpense">—</span>
+        </div>
+        <div class="stat-card accent-orange">
+          <span class="stat-icon">📌</span>
+          <span class="stat-label">Top Category</span>
+          <span class="stat-value sm" id="topCategory">—</span>
+        </div>
+        <div class="stat-card accent-purple">
+          <span class="stat-icon">🗓️</span>
+          <span class="stat-label">Daily Average</span>
+          <span class="stat-value" id="dailyAvg">$0.00</span>
+        </div>
+        <div class="stat-card accent-pink">
+          <span class="stat-icon">🔥</span>
+          <span class="stat-label">Active Days</span>
+          <span class="stat-value" id="activeDays">0</span>
+        </div>
       </div>
-      <div class="card">
-        <span class="card-label">This Month</span>
-        <span class="card-value" id="monthSpent">$0.00</span>
+    </section>
+
+    <!-- Charts Section -->
+    <section class="charts-section">
+      <div class="chart-box">
+        <h3>📊 Spending by Category</h3>
+        <div class="chart-wrap"><canvas id="categoryChart"></canvas></div>
+      </div>
+      <div class="chart-box">
+        <h3>📈 Spending Trend (Last 7 Days)</h3>
+        <div class="chart-wrap"><canvas id="trendChart"></canvas></div>
+      </div>
+      <div class="chart-box">
+        <h3>🥧 Category Breakdown</h3>
+        <div class="chart-wrap"><canvas id="barChart"></canvas></div>
+      </div>
+      <div class="chart-box insights-box">
+        <h3>💡 Spending Insights</h3>
+        <ul id="insightsList" class="insights-list">
+          <li class="insight-item">Add some expenses to see insights!</li>
+        </ul>
       </div>
     </section>
 
@@ -86,7 +129,6 @@
             <option value="Public Transport">🚌 Public Transport</option>
             <option value="Taxi/Ride">🚕 Taxi / Ride Share</option>
             <option value="Parking">🅿️ Parking</option>
-            <option value="Vehicle Maintenance">🔧 Vehicle Maintenance</option>
           </optgroup>
           <optgroup label="🛍️ Shopping">
             <option value="Shopping">🛍️ General Shopping</option>
@@ -112,15 +154,12 @@
             <option value="Games">🎮 Games</option>
             <option value="Sports">⚽ Sports</option>
             <option value="Travel">✈️ Travel</option>
-            <option value="Hobbies">🎨 Hobbies</option>
           </optgroup>
           <optgroup label="🏥 Health">
             <option value="Health">🏥 General Health</option>
             <option value="Medicine">💊 Medicine</option>
             <option value="Doctor">👨‍⚕️ Doctor Visit</option>
-            <option value="Dental">🦷 Dental</option>
             <option value="Gym">💪 Gym & Fitness</option>
-            <option value="Mental Health">🧠 Mental Health</option>
           </optgroup>
           <optgroup label="🎓 Education">
             <option value="Education">🎓 General Education</option>
@@ -128,14 +167,9 @@
             <option value="Books">📚 Books</option>
             <option value="Courses">💻 Online Courses</option>
           </optgroup>
-          <optgroup label="👨‍👩‍👧 Personal">
-            <option value="Personal Care">💄 Personal Care</option>
-            <option value="Haircut">✂️ Haircut & Salon</option>
-            <option value="Kids">🧒 Kids & Family</option>
-            <option value="Pets">🐾 Pets</option>
-            <option value="Charity">❤️ Charity & Donations</option>
-          </optgroup>
           <optgroup label="📦 Other">
+            <option value="Personal Care">💄 Personal Care</option>
+            <option value="Charity">❤️ Charity & Donations</option>
             <option value="Other">📦 Other</option>
             <option value="Business">💼 Business Expense</option>
             <option value="Fees">🏦 Bank Fees</option>
@@ -146,30 +180,59 @@
       </form>
     </section>
 
-    <!-- Chart + List -->
-    <div class="main-grid">
-      <section class="chart-section">
-        <h2>Spending by Category</h2>
-        <div class="chart-wrap">
-          <canvas id="categoryChart"></canvas>
+    <!-- Expense List -->
+    <section class="list-section">
+      <div class="list-header">
+        <h2>Recent Expenses</h2>
+        <div class="list-controls">
+          <input type="text" id="searchInput" placeholder="🔍 Search..." class="search-input" />
+          <button id="downloadPdf" class="btn-pdf" title="Download PDF report">📄 Download PDF</button>
         </div>
-      </section>
+      </div>
+      <ul id="expenseList" class="expense-list">
+        <li class="empty-state">No expenses yet. Add one above! 👆</li>
+      </ul>
+    </section>
 
-      <section class="list-section">
-        <div class="list-header">
-          <h2>Recent Expenses</h2>
-          <button id="downloadPdf" class="btn-pdf" title="Download expenses as PDF">
-            📄 Download PDF
-          </button>
-        </div>
-        <ul id="expenseList" class="expense-list">
-          <li class="empty-state">No expenses yet. Add one above! 👆</li>
-        </ul>
-      </section>
+    <!-- Edit Modal -->
+    <div class="modal-overlay" id="editModal" style="display:none;">
+      <div class="modal">
+        <h2>✏️ Edit Expense</h2>
+        <form id="editForm">
+          <label>Description</label>
+          <input type="text" id="editDescription" required />
+          <label>Amount</label>
+          <input type="number" id="editAmount" step="0.01" min="0.01" required />
+          <label>Category</label>
+          <select id="editCategory" required></select>
+          <label>Date</label>
+          <input type="date" id="editDate" required />
+          <div class="modal-buttons">
+            <button type="submit" class="btn-save">💾 Save Changes</button>
+            <button type="button" class="btn-cancel" id="closeEdit">✕ Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Profile Modal -->
+    <div class="modal-overlay" id="profileModal" style="display:none;">
+      <div class="modal">
+        <h2>👤 Your Name (for PDF signature)</h2>
+        <form id="profileForm">
+          <label>Your Name</label>
+          <input type="text" id="userName" placeholder="e.g. Luel Zelalem" maxlength="50" />
+          <p class="modal-hint">This name will appear as a signature on your downloaded PDF reports.</p>
+          <div class="modal-buttons">
+            <button type="submit" class="btn-save">💾 Save Name</button>
+            <button type="button" class="btn-cancel" id="closeProfile">✕ Cancel</button>
+          </div>
+        </form>
+      </div>
     </div>
 
     <footer class="footer">
-      <p>Made with 💙 — <a href="https://github.com/luelzelalem848-max/expenseflow" target="_blank">View on GitHub</a></p>
+      <p>Made with 💙 by <span id="footerName">Luel Zelalem</span> — <a href="https://github.com/luelzelalem848-max/expenseflow" target="_blank">View on GitHub</a></p>
     </footer>
   </div>
 
