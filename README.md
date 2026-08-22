@@ -1,47 +1,55 @@
-# 💰 ExpenseFlow — Personal Expense Tracker
+# 💸 ExpenseFlow — Personal Expense Tracker & Landing Page
 
-A sleek, modern expense tracker that runs entirely in your browser. No backend, no sign-up — just open and go.
+A sleek, modern personal expense tracker and landing page that runs entirely in your browser. No backend, no sign-up required — 100% private and stored locally.
 
-## Features
-- ➕ Add expenses with category, amount, and description
-- 📊 Live summary cards (total, by category, this month)
-- 📈 Interactive doughnut chart of spending by category
-- 🌍 **20 currencies supported** (USD, EUR, GBP, ETB, JPY, INR, CNY, NGN, KES, BRL, CAD, AUD, ZAR, EGP, GHS, UGX, TZS, RWF, AED, SAR)
-- 🌙 **Dark/Light mode toggle** — switch themes with one click, auto-saves your preference
-- 📄 **Download PDF report** — export all your expenses as a clean PDF with table and totals
-- 🔢 **Commas in all numbers** — $1,234.56 instead of $1234.56
-- 🏷️ **40+ categories** organized into groups: Food & Drinks, Transport, Shopping, Bills, Entertainment, Health, Education, Personal, and more
-- 🗑️ Delete any entry with one click
-- 💾 Auto-saves to localStorage — your data persists between visits
-- 📱 Fully responsive — works on phone, tablet, and desktop
+![ExpenseFlow](https://raw.githubusercontent.com/luelzelalem848-max/expenseflow/main/index.html)
+
+## ✨ Landing Page Features
+- 🚀 **Stunning Landing Page (`index.html`)** — Glassmorphism dark theme with purple/indigo gradients (`#6366f1`)
+- 💫 **Floating Animated Expense Cards** — Dynamic CSS keyframe animations
+- 📜 **Scroll Reveal Animations** — Smooth intersection observer reveals with stagger delay
+- 🔢 **Animated Stat Counters** — Counts up automatically on scroll (50+ Categories, 20 Currencies, 3 Charts, 100% Free)
+- 📱 **Responsive Sticky Navbar** — Glass backdrop blur, smooth scrolling, and mobile menu toggle
+
+## 📊 App Features (`app.html`)
+- ➕ **Add Expenses** with category, amount, description, and date
+- 📊 **Live Summary Cards** (Total spent, monthly total, average per entry, active days)
+- 📈 **3 Interactive Charts** — Category Doughnut Chart, 7-Day Trend Chart, and Category Breakdown Bar Chart
+- 💡 **Automated Insights** — Instant analysis of top spending habits
+- 🌍 **20 Currencies Supported** (USD, EUR, GBP, ETB, JPY, INR, KES, NGN, AED, SAR, and more)
+- 🌙 **Dark/Light Mode Toggle** — Auto-saves preference
+- 📄 **Signed PDF Report** — Export expenses as a clean PDF table with custom user signature
+- ✏️ **Full Edit & Search Support** — Search and modify any past transaction
+- 💾 **Auto-saves to localStorage** — Your data persists securely in your browser
 
 ## Tech Stack
-- HTML5, CSS3, vanilla JavaScript (no frameworks)
-- Chart.js (CDN) for the doughnut chart
+- HTML5, CSS3 (CSS Variables, Flexbox/Grid, Keyframe Animations, Glassmorphism)
+- Vanilla JavaScript (IntersectionObserver, DOM Manipulation, Canvas Chart.js, jsPDF)
+- Chart.js (CDN) for interactive financial charts
 - jsPDF + AutoTable (CDN) for PDF export
-- localStorage for data persistence
 
 ## How to Run
-1. Clone the repo
-2. Open `index.html` in any browser
-3. Start tracking your expenses!
+1. Clone the repo:
+   ```bash
+   git clone https://github.com/luelzelalem848-max/expenseflow.git
+   ```
+2. Open `index.html` in any browser to view the landing page.
+3. Click **Launch App** or open `app.html` directly to start tracking expenses!
 
-Or visit the [live demo](https://luelzelalem848-max.github.io/expenseflow/)
-
-## Deploy to GitHub Pages
-1. Push this repo to GitHub
-2. Go to **Settings → Pages**
-3. Select **main** branch, `/ (root)` folder
-4. Save — your app will be live
+Or visit the [Live GitHub Pages Demo](https://luelzelalem848-max.github.io/expenseflow/).
 
 ## Project Structure
 ```
 ExpenseFlow/
-├── index.html       # Main HTML structure
-├── style.css        # All styling (dark + light themes)
-├── app.js           # App logic (CRUD, chart, currency, theme, PDF export)
-└── README.md        # You are here
+├── index.html       # Stunning landing page with glassmorphism & animations
+├── landing.css      # Landing page styles (dark glass theme, floating cards, scroll reveals)
+├── landing.js       # Interactivity (IntersectionObserver, scroll reveals, animated counters)
+├── app.html         # Expense tracker application page
+├── style.css        # Expense tracker app styling (dark + light themes)
+├── app.js           # Main app logic (CRUD, charts, currency, theme, PDF export)
+├── README.md        # Documentation
+└── LICENSE          # MIT License
 ```
 
 ## License
-MIT — free to use, modify, and share.
+MIT — Free to use, modify, and share.
