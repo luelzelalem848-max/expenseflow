@@ -1,0 +1,125 @@
+/* ================================================================
+   ULTRA LUXURY PRO MAX — animation layer
+   Shimmer text · animated conic borders · aurora · film grain · shine
+   ================================================================ */
+@property --fx-ang { syntax: '<angle>'; initial-value: 0deg; inherits: false; }
+
+.fx-shimmer {
+  background: linear-gradient(110deg, #818cf8 0%, #c084fc 25%, #f5b942 50%, #818cf8 75%, #c084fc 100%);
+  background-size: 220% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: fx-shimmer-move 6s linear infinite;
+}
+@keyframes fx-shimmer-move { to { background-position: 220% center; } }
+
+/* Animated conic light border on cards */
+.fx-lux-card { position: relative; }
+.fx-lux-card::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: conic-gradient(from var(--fx-ang),
+    transparent 0%, transparent 30%%, #818cf8 45%%, #c084fc 55%%, transparent 70%%, transparent 100%%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+          mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+          mask-composite: exclude;
+  opacity: 0;
+  transition: opacity .45s ease;
+  animation: fx-ang-spin 5s linear infinite;
+  pointer-events: none;
+}
+.fx-lux-card:hover::before { opacity: 1; }
+@keyframes fx-ang-spin { to { --fx-ang: 360deg; } }
+
+/* Tilt wrapper state (JS drives transforms) */
+.fx-tilt { transform-style: preserve-3d; will-change: transform; transition: transform .18s ease; }
+.fx-tilt .fx-tilt-inner, .fx-tilt > * { transform: translateZ(14px); }
+
+/* Aurora blobs in hero */
+.fx-aurora { position: absolute; inset: -20%%; overflow: hidden; pointer-events: none; z-index: 0; }
+.fx-aurora i {
+  position: absolute;
+  border-radius: 50%%;
+  filter: blur(70px);
+  opacity: .35;
+  animation: fx-blob-drift 22s ease-in-out infinite alternate;
+}
+.fx-aurora i:nth-child(1) { width: 42vw; height: 42vw; left: -12%%; top: -18%%; background: #818cf8; animation-delay: -4s; }
+.fx-aurora i:nth-child(2) { width: 36vw; height: 36vw; right: -10%%; top: 12%%; background: #c084fc; animation-delay: -12s; }
+.fx-aurora i:nth-child(3) { width: 30vw; height: 30vw; left: 28%%; bottom: -25%%; background: #f5b942; opacity: .18; animation-delay: -18s; }
+@keyframes fx-blob-drift {
+  0%%   { transform: translate3d(0, 0, 0) scale(1); }
+  50%%  { transform: translate3d(6vw, 4vh, 0) scale(1.15); }
+  100%% { transform: translate3d(-4vw, -3vh, 0) scale(.95); }
+}
+
+/* Film grain — the luxury finish */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 2147483000;
+  pointer-events: none;
+  opacity: .05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation: fx-grain 8s steps(10) infinite;
+}
+@keyframes fx-grain {
+  0%,100%% { transform: translate(0, 0); } 10%% { transform: translate(-2%%,-3%%); }
+  20%% { transform: translate(-4%%,2%%); }  30%% { transform: translate(2%%,-4%%); }
+  40%% { transform: translate(-2%%,3%%); }  50%% { transform: translate(-3%%,-2%%); }
+  60%% { transform: translate(3%%,2%%); }   70%% { transform: translate(-2%%,4%%); }
+  80%% { transform: translate(4%%,-2%%); } 90%% { transform: translate(-4%%,3%%); }
+}
+
+/* Button shine sweep + magnetic (JS adds .fx-shine) */
+.fx-shine { position: relative; overflow: hidden; }
+.fx-shine::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -80%;
+  width: 45%; height: 100%;
+  background: linear-gradient(105deg, transparent, rgba(255,255,255,.35), transparent);
+  transform: skewX(-22deg);
+  transition: left .6s ease;
+  pointer-events: none;
+}
+.fx-shine:hover::after { left: 130%; }
+
+/* Click ripple */
+.fx-ripple {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255,255,255,.35);
+  transform: scale(0);
+  animation: fx-ripple .55s ease-out forwards;
+  pointer-events: none;
+}
+@keyframes fx-ripple { to { transform: scale(3.2); opacity: 0; } }
+
+/* Luxury scrollbar */
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: rgba(10,12,22,.9); }
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #818cf8, #c084fc);
+  border-radius: 8px;
+  border: 2px solid rgba(10,12,22,.9);
+}
+::selection { background: #818cf855; }
+
+/* Focus glow */
+.fx-glow-input:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #818cf866, 0 0 24px #818cf833;
+  border-color: #818cf8;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fx-shimmer, .fx-lux-card::before, .fx-aurora i, body::after { animation: none; }
+}

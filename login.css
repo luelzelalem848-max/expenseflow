@@ -1,0 +1,131 @@
+/* ================================================================
+   LUXURY LOGIN GATE — cinematic entry screen
+   ================================================================ */
+.fx-gate {
+  position: fixed;
+  inset: 0;
+  z-index: 2147482000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(ellipse at center, rgba(6,8,18,.42) 0%, rgba(4,6,14,.78) 100%);
+  backdrop-filter: blur(14px) saturate(1.2);
+  -webkit-backdrop-filter: blur(14px) saturate(1.2);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .45s ease, visibility .45s;
+}
+.fx-gate.fx-open { opacity: 1; visibility: visible; }
+
+.fx-gate-card {
+  position: relative;
+  width: min(92vw, 420px);
+  padding: 2.6rem 2.2rem 2.2rem;
+  border-radius: 24px;
+  background: linear-gradient(160deg, rgba(16,20,36,.88), rgba(10,12,24,.92));
+  border: 1px solid rgba(255,255,255,.12);
+  box-shadow: 0 30px 80px rgba(0,0,0,.6), 0 0 60px #818cf822, inset 0 1px 0 rgba(255,255,255,.08);
+  text-align: center;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  animation: fx-gate-pop .7s cubic-bezier(.18,.89,.32,1.28) both;
+}
+.fx-gate.fx-closing .fx-gate-card { animation: fx-gate-out .4s ease forwards; }
+@keyframes fx-gate-pop {
+  0%   { transform: scale(.7) translateY(30px); opacity: 0; }
+  100% { transform: scale(1) translateY(0); opacity: 1; }
+}
+@keyframes fx-gate-out {
+  to { transform: scale(.85) translateY(-20px); opacity: 0; }
+}
+
+/* Rotating conic halo around the card */
+.fx-gate-card::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: 25px;
+  padding: 1.5px;
+  background: conic-gradient(from var(--fx-ang, 0deg),
+    transparent 0%, transparent 25%, #818cf8 42%, #f5b942 50%, #c084fc 58%, transparent 75%, transparent 100%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+          mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+          mask-composite: exclude;
+  animation: fx-gate-halo 4.5s linear infinite;
+  pointer-events: none;
+}
+@keyframes fx-gate-halo { to { --fx-ang: 360deg; } }
+
+.fx-gate-logo {
+  font-size: 3.2rem;
+  line-height: 1;
+  display: inline-block;
+  animation: fx-logo-float 3.2s ease-in-out infinite;
+  filter: drop-shadow(0 0 18px #818cf8aa);
+}
+@keyframes fx-logo-float {
+  0%, 100% { transform: translateY(0) rotate(-3deg); }
+  50%      { transform: translateY(-10px) rotate(3deg); }
+}
+
+.fx-gate-title {
+  margin: 1rem 0 .35rem;
+  font-size: 1.7rem;
+  font-weight: 700;
+  letter-spacing: .5px;
+  background: linear-gradient(110deg, #818cf8, #c084fc 55%, #f5b942);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.fx-gate-tag { margin: 0 0 1.6rem; color: rgba(255,255,255,.62); font-size: .95rem; }
+.fx-gate-label { display: block; text-align: left; color: rgba(255,255,255,.75); font-size: .82rem; font-weight: 600; margin-bottom: .5rem; letter-spacing: .3px; }
+
+.fx-gate input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: .9rem 1.1rem;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,.16);
+  background: rgba(255,255,255,.06);
+  color: #fff;
+  font-size: 1rem;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  transition: box-shadow .25s, border-color .25s, background .25s;
+}
+.fx-gate input::placeholder { color: rgba(255,255,255,.38); }
+
+.fx-gate-cta {
+  width: 100%;
+  margin-top: 1.3rem;
+  padding: .95rem 1rem;
+  border: none;
+  border-radius: 14px;
+  cursor: pointer;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+  background: linear-gradient(135deg, #818cf8, #c084fc);
+  background-size: 160% auto;
+  box-shadow: 0 10px 30px #818cf855, inset 0 1px 0 rgba(255,255,255,.25);
+  transition: background-position .35s, transform .25s, box-shadow .25s;
+}
+.fx-gate-cta:hover { background-position: 100% center; transform: translateY(-2px); box-shadow: 0 14px 38px #818cf877; }
+.fx-gate-cta:active { transform: translateY(0) scale(.98); }
+
+.fx-gate-error {
+  margin-top: .8rem;
+  font-size: .82rem;
+  color: #f5b942;
+  min-height: 1.1em;
+  opacity: 0;
+  transition: opacity .25s;
+}
+.fx-gate-error.fx-show { opacity: 1; }
+.fx-gate-card.fx-shake { animation: fx-shake .45s ease; }
+@keyframes fx-shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-9px); } 40% { transform: translateX(8px); }
+  60% { transform: translateX(-6px); } 80% { transform: translateX(4px); }
+}
