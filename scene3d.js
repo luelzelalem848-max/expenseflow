@@ -65,6 +65,52 @@
   var pts = new THREE.Points(pGeo, new THREE.PointsMaterial({ color: 0xE8B84B, size: 0.05, transparent: true, opacity: 0.55 }));
   group.add(pts);
 
+
+  /* ---- v3: glow bloom sprites (procedural, additive) ---- */
+  var gc = document.createElement('canvas'); gc.width = gc.height = 128;
+  var gctx = gc.getContext('2d');
+  var ggr = gctx.createRadialGradient(64, 64, 0, 64, 64, 64);
+  ggr.addColorStop(0, 'rgba(255,255,255,1)');
+  ggr.addColorStop(.3, 'rgba(255,255,255,.45)');
+  ggr.addColorStop(1, 'rgba(255,255,255,0)');
+  gctx.fillStyle = ggr; gctx.fillRect(0, 0, 128, 128);
+  var glowTex = new THREE.CanvasTexture(gc);
+  function mkGlow(color, x, y, z, s, op) {
+    var sp = new THREE.Sprite(new THREE.SpriteMaterial({
+      map: glowTex, color: color, transparent: true, opacity: op,
+      blending: THREE.AdditiveBlending, depthWrite: false
+    }));
+    sp.position.set(x, y, z); sp.scale.setScalar(s);
+    scene.add(sp);
+    return sp;
+  }
+  mkGlow(0x818cf8, -6, 3.5, -5, 8, 0.5);
+  mkGlow(0xc084fc, 6.5, -3, -4, 7, 0.42);
+  mkGlow(0xE8B84B, 0, -4.5, -7, 9, 0.3);
+
+  /* ---- v3: deep nebula starfield ---- */
+  var nGeo = new THREE.BufferGeometry();
+  var nArr = new Float32Array(700 * 3);
+  for (var ni = 0; ni < 700; ni++) {
+    var r = 9 + Math.random() * 7;
+    var th = Math.random() * Math.PI * 2;
+    var ph = Math.acos(2 * Math.random() - 1);
+    nArr[ni * 3] = r * Math.sin(ph) * Math.cos(th);
+    nArr[ni * 3 + 1] = r * Math.sin(ph) * Math.sin(th) * 0.6;
+    nArr[ni * 3 + 2] = -6 - r * Math.cos(ph) * 0.4;
+  }
+  nGeo.setAttribute('position', new THREE.BufferAttribute(nArr, 3));
+  var nebula = new THREE.Points(nGeo, new THREE.PointsMaterial({
+    color: 0xE8B84B, size: 0.045, transparent: true, opacity: 0.5, depthWrite: false
+  }));
+  scene.add(nebula);
+
+  /* ---- v3: scroll-driven camera dolly ---- */
+  window.addEventListener('scroll', function () {
+    var sf = Math.min(window.scrollY / window.innerHeight, 1.2);
+    camera.position.z = 11 + sf * 4;
+  }, { passive: true });
+
   var tx = 0, ty = 0;
   window.addEventListener('pointermove', function (e) {
     tx = (e.clientX / window.innerWidth - .5) * 2;
@@ -96,6 +142,7 @@
       m.rotation.y = m.rotation.y + u.ry;
     }
     pts.rotation.y = t * 0.03;
+    nebula.rotation.y = -t * 0.02;
     group.rotation.y += (tx * 0.30 - group.rotation.y) * 0.045;
     group.rotation.x += (ty * 0.14 - group.rotation.x) * 0.045;
     camera.position.x = tx * 0.9; camera.position.y = -ty * 0.55;

@@ -1,0 +1,75 @@
+/* ================================================================
+   v3 EFFECTS PACK — preloader, cursor aura, sparks, marquee, chip
+   ================================================================ */
+#fx-pre {
+  position: fixed; inset: 0; z-index: 2147483600;
+  background: radial-gradient(ellipse at center, #0a0e1c 0%, #04070f 100%);
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1.2rem;
+  transition: opacity .55s ease, visibility .55s;
+  font-family: 'Space Grotesk', 'Fredoka', 'Poppins', system-ui, sans-serif;
+}
+#fx-pre.fx-done { opacity: 0; visibility: hidden; }
+.fx-pre-logo { font-size: 3.4rem; animation: fx-pre-pulse 1.2s ease-in-out infinite; filter: drop-shadow(0 0 22px rgba(129,140,248,.8)); }
+@keyframes fx-pre-pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.18); } }
+.fx-pre-count { color: #fff; font-size: 1.05rem; font-weight: 600; letter-spacing: 2px; }
+.fx-pre-bar { width: 180px; height: 3px; border-radius: 99px; background: rgba(255,255,255,.12); overflow: hidden; }
+.fx-pre-bar i { display: block; height: 100%; width: 0%; border-radius: 99px; background: linear-gradient(90deg, #818cf8, #c084fc, #f5b942); transition: width .12s ease; }
+
+/* cursor aura (desktop) */
+#fx-cursor {
+  position: fixed; left: 0; top: 0; z-index: 2147483500;
+  width: 30px; height: 30px; margin: -15px 0 0 -15px;
+  border-radius: 50%; pointer-events: none;
+  background: radial-gradient(circle, rgba(255,255,255,.22), transparent 65%);
+  border: 1px solid rgba(255,255,255,.35);
+  mix-blend-mode: screen;
+  transition: transform .16s ease, opacity .3s;
+  opacity: 0;
+}
+#fx-cursor.fx-on { opacity: 1; }
+#fx-cursor.fx-grow { transform: scale(2.3); }
+@media (hover: none), (pointer: coarse) { #fx-cursor { display: none; } }
+
+/* click sparks */
+.fx-spark {
+  position: fixed; z-index: 2147483400; pointer-events: none;
+  width: 7px; height: 7px; border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 10px currentColor;
+  animation: fx-spark-fly .7s cubic-bezier(.1,.8,.3,1) forwards;
+}
+@keyframes fx-spark-fly {
+  0%   { transform: translate(0, 0) scale(1); opacity: 1; }
+  100% { transform: translate(var(--tx), var(--ty)) scale(0); opacity: 0; }
+}
+
+/* marquee strip */
+.fx-marquee {
+  overflow: hidden; padding: 1.1rem 0;
+  border-top: 1px solid rgba(255,255,255,.08);
+  border-bottom: 1px solid rgba(255,255,255,.08);
+  background: rgba(255,255,255,.025);
+  backdrop-filter: blur(8px);
+}
+.fx-marquee-track {
+  display: inline-flex; gap: 3.2rem; white-space: nowrap; width: max-content;
+  animation: fx-marquee 22s linear infinite;
+  font-size: .95rem; font-weight: 600; letter-spacing: 4px; text-transform: uppercase;
+  color: rgba(255,255,255,.42);
+}
+.fx-marquee-track b { color: rgba(245,185,66,.9); font-weight: 600; }
+@keyframes fx-marquee { to { transform: translateX(-50%); } }
+
+/* version chip — visible proof of which build is running */
+#fx-ver {
+  position: fixed; right: 14px; bottom: 12px; z-index: 2147483300;
+  padding: .32rem .8rem; border-radius: 999px;
+  background: rgba(10,14,28,.55); border: 1px solid rgba(255,255,255,.14);
+  backdrop-filter: blur(10px);
+  color: rgba(255,255,255,.6); font-size: .62rem; font-weight: 600; letter-spacing: 1.5px;
+  pointer-events: none;
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+}
+@media (prefers-reduced-motion: reduce) {
+  .fx-marquee-track, .fx-pre-logo { animation: none; }
+}
