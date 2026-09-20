@@ -3,318 +3,120 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="A beautiful personal expense tracker with charts, budgets and PDF reports." />
   <title>ExpenseFlow — Track Your Spending. Own Your Budget.</title>
-  <link rel="stylesheet" href="landing.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="landing-v2.css" />
   <link rel="stylesheet" href="ultra.css" />
-  <link rel="stylesheet" href="bg.css" />
 </head>
 <body>
-<div class="fx-bg" aria-hidden="true">
-  <div class="fx-bg-img"></div>
-  <div class="fx-bg-overlay"></div>
-  <div class="fx-bg-glow"></div>
-  <div class="fx-bg-particles">
-    <span style="--x:6%;--d:26s;--del:-3s;--s:1.1">💵</span>
-    <span style="--x:17%;--d:31s;--del:-11s;--s:0.8">📈</span>
-    <span style="--x:28%;--d:24s;--del:-7s;--s:1.3">🪙</span>
-    <span style="--x:39%;--d:35s;--del:-19s;--s:0.7">💰</span>
-    <span style="--x:50%;--d:28s;--del:-14s;--s:1.0">⚡</span>
-    <span style="--x:61%;--d:33s;--del:-5s;--s:1.2">💵</span>
-    <span style="--x:72%;--d:27s;--del:-21s;--s:0.85">📈</span>
-    <span style="--x:83%;--d:30s;--del:-9s;--s:1.0">🪙</span>
-    <span style="--x:91%;--d:36s;--del:-16s;--s:0.9">💰</span>
-    <span style="--x:11%;--d:38s;--del:-24s;--s:0.7">⚡</span>
-    <span style="--x:45%;--d:40s;--del:-30s;--s:0.75">💵</span>
-    <span style="--x:67%;--d:42s;--del:-27s;--s:0.65">📈</span>
-  </div>
-</div>
 
-
-  <!-- Ambient Background Glow Orbs -->
-  <div class="bg-glow-container" aria-hidden="true">
-    <div class="glow-orb glow-orb-1"></div>
-    <div class="glow-orb glow-orb-2"></div>
-    <div class="glow-orb glow-orb-3"></div>
-  </div>
-
-  <!-- Sticky Navbar -->
-  <nav class="navbar">
-    <div class="container nav-container">
-      <a href="#" class="logo">
-        <span class="logo-icon">💸</span>
-        <span>ExpenseFlow</span>
-      </a>
-
-      <ul class="nav-links">
-        <li><a href="#features">Features</a></li>
-        <li><a href="#how-it-works">How It Works</a></li>
-        <li><a href="#stats">Stats</a></li>
-      </ul>
-
-      <div class="nav-actions">
-        <a href="app.html" class="btn btn-primary">Launch App 🚀</a>
-        <button class="nav-toggle" aria-label="Toggle Navigation">☰</button>
-      </div>
-    </div>
+  <nav class="nav" id="nav">
+    <a class="nav-logo" href="index.html">💸 <span>ExpenseFlow</span></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#features">Features</a></li>
+      <li><a href="#stats">Why ExpenseFlow</a></li>
+      <li><a href="app.html" class="nav-cta">Launch App 🚀</a></li>
+    </ul>
+    <button class="nav-burger" id="burger" aria-label="Menu">☰</button>
   </nav>
 
-  <!-- Hero Section -->
-  <section class="hero">
-    <div class="container hero-grid">
-      <div class="hero-content reveal">
-        <div class="badge">
-          <span class="badge-dot"></span>
-          <span>100% Free & Browser-Based</span>
-        </div>
-        <h1 class="hero-title">
-          <span class="gradient-text">Track Your Spending.</span><br />
-          <span class="gradient-text-accent">Own Your Budget.</span>
-        </h1>
-        <p class="hero-subtitle">
-          Take full control of your personal finances with real-time statistics, visual breakdown charts, multi-currency support, and signed PDF exports.
-        </p>
-        <div class="hero-buttons">
-          <a href="app.html" class="btn btn-primary btn-lg">Launch App 🚀</a>
-          <a href="https://github.com/luelzelalem848-max/expenseflow" target="_blank" rel="noopener" class="btn btn-secondary btn-lg">View on GitHub 🐙</a>
-        </div>
+  <header class="hero3d">
+    <canvas id="scene3d"></canvas>
+    <div class="hero-inner">
+      <span class="hero-badge rv">💸 Personal finance, reimagined</span>
+      <h1 class="hero-title rv" data-d="1">Spend smart.<br /><span class="stroke">Own every birr.</span></h1>
+      <p class="hero-sub rv" data-d="2">ExpenseFlow turns your daily spending into a cinematic dashboard — charts, budgets and exportable PDF reports, all private on your device.</p>
+      <div class="hero-ctas rv" data-d="3">
+        <a href="app.html" class="btn-primary">Launch App 🚀</a>
+        <a href="https://github.com/luelzelalem848-max/expenseflow" target="_blank" rel="noopener" class="btn-ghost">View on GitHub 🐙</a>
       </div>
+    </div>
+    <div class="scroll-hint">⌄</div>
+  </header>
 
-      <!-- Animated Floating Expense Cards Background Visual -->
-      <div class="hero-visual reveal delay-2">
-        <!-- Floating Card 1 -->
-        <div class="floating-card fc-1">
-          <div class="fc-icon" style="background: rgba(239, 68, 68, 0.15); color: #f87171;">☕</div>
-          <div class="fc-info">
-            <h4>Starbucks Coffee</h4>
-            <p>Food & Drinks</p>
-          </div>
-          <div class="fc-amount neg">-$4.50</div>
-        </div>
-
-        <!-- Floating Card 2 -->
-        <div class="floating-card fc-2">
-          <div class="fc-icon" style="background: rgba(16, 185, 129, 0.15); color: #34d399;">🛒</div>
-          <div class="fc-info">
-            <h4>Supermarket</h4>
-            <p>Groceries</p>
-          </div>
-          <div class="fc-amount neg">-$64.20</div>
-        </div>
-
-        <!-- Floating Card 3 -->
-        <div class="floating-card fc-3">
-          <div class="fc-icon" style="background: rgba(245, 158, 11, 0.15); color: #fbbf24;">⚡</div>
-          <div class="fc-info">
-            <h4>Electricity Bill</h4>
-            <p>Bills & Utilities</p>
-          </div>
-          <div class="fc-amount neg">-$85.00</div>
-        </div>
-
-        <!-- Floating Card 4 -->
-        <div class="floating-card fc-4">
-          <div class="fc-icon" style="background: rgba(99, 102, 241, 0.15); color: #818cf8;">✈️</div>
-          <div class="fc-info">
-            <h4>Flight Booking</h4>
-            <p>Travel</p>
-          </div>
-          <div class="fc-amount neg">-$320.00</div>
-        </div>
-
-        <!-- Center Summary Glass Card -->
-        <div class="visual-center-card">
-          <div class="center-card-header">
-            <span class="center-card-title">Total Spent</span>
-            <span style="font-size: 0.85rem; color: #34d399; font-weight: 700;">▲ 12% vs last month</span>
-          </div>
-          <div class="center-card-amount">$473.70</div>
-          <div style="font-size: 0.85rem; color: var(--text-muted); display: flex; justify-content: space-between;">
-            <span>Category Breakdown</span>
-            <span>4 Entries</span>
-          </div>
-          <div class="mini-chart">
-            <div class="bar" style="height: 40%; background: linear-gradient(to top, #6366f1, #818cf8);" title="Food"></div>
-            <div class="bar" style="height: 75%; background: linear-gradient(to top, #ec4899, #f472b6);" title="Groceries"></div>
-            <div class="bar" style="height: 60%; background: linear-gradient(to top, #f59e0b, #fbbf24);" title="Bills"></div>
-            <div class="bar" style="height: 100%; background: linear-gradient(to top, #8b5cf6, #c084fc);" title="Travel"></div>
-          </div>
-        </div>
-      </div>
+  <section class="section" id="features">
+    <span class="kicker rv">Features</span>
+    <h2 class="section-title rv" data-d="1">Everything you need to budget smart</h2>
+    <p class="section-sub rv" data-d="2">Built for speed, clarity and total control over your money — with zero accounts and zero data collection.</p>
+    <div class="bento">
+      <div class="bento-card stat-card b-wide rv" data-d="1">
+  <div class="b-icon">📊</div>
+  <h3>Live charts</h3>
+  <p>Your spending visualised the moment you log it — categories, trends and totals.</p>
+</div>
+      <div class="bento-card stat-card  rv" data-d="2">
+  <div class="b-icon">🧾</div>
+  <h3>Smart categories</h3>
+  <p>Auto-organised spending across food, transport, bills and more.</p>
+</div>
+      <div class="bento-card stat-card b-tall rv" data-d="3">
+  <div class="b-icon">📄</div>
+  <h3>PDF reports</h3>
+  <p>One-tap export with your signature — perfect for records or sharing.</p>
+</div>
+      <div class="bento-card stat-card  rv" data-d="4">
+  <div class="b-icon">💱</div>
+  <h3>Multi-currency</h3>
+  <p>Switch between ETB, USD, EUR and more instantly.</p>
+</div>
+      <div class="bento-card stat-card b-wide rv" data-d="5">
+  <div class="b-icon">🔒</div>
+  <h3>100% private</h3>
+  <p>No account. No cloud. Your data never leaves your device.</p>
+</div>
+      <div class="bento-card stat-card  rv" data-d="1">
+  <div class="b-icon">⚡</div>
+  <h3>Offline fast</h3>
+  <p>Instant loading, works without internet, dark luxury by default.</p>
+</div>
     </div>
   </section>
 
-  <!-- Features Section -->
-  <section id="features" class="section">
-    <div class="container">
-      <div class="section-header reveal">
-        <span class="section-subtitle">Features</span>
-        <h2 class="section-title">Everything You Need to Budget Smart</h2>
-        <p class="section-desc">Designed for speed, clarity, and total control over your financial records.</p>
-      </div>
-
-      <div class="features-grid">
-        <!-- Feature 1 -->
-        <div class="feature-card reveal delay-1">
-          <div class="feature-icon-wrapper">📊</div>
-          <h3>Smart Statistics</h3>
-          <p>Track total spent, daily average, top spending categories, monthly trends, and automated financial insights in real-time.</p>
-        </div>
-
-        <!-- Feature 2 -->
-        <div class="feature-card reveal delay-2">
-          <div class="feature-icon-wrapper">✏️</div>
-          <h3>Edit Anything</h3>
-          <p>Full flexibility to edit descriptions, amounts, categories, and dates or search through past expenses instantly.</p>
-        </div>
-
-        <!-- Feature 3 -->
-        <div class="feature-card reveal delay-3">
-          <div class="feature-icon-wrapper">📄</div>
-          <h3>Signed PDF Reports</h3>
-          <p>Generate professional, customized PDF expense reports complete with your personal signature and currency breakdown.</p>
-        </div>
-
-        <!-- Feature 4 -->
-        <div class="feature-card reveal delay-4">
-          <div class="feature-icon-wrapper">🌍</div>
-          <h3>Multi-Currency</h3>
-          <p>Seamlessly switch between 20 currencies including USD, EUR, GBP, ETB, JPY, INR, KES, NGN, AED, SAR, and more.</p>
-        </div>
-      </div>
+  <section class="section" id="stats">
+    <span class="kicker rv">Why ExpenseFlow</span>
+    <h2 class="section-title rv" data-d="1">Numbers that matter</h2>
+    <div class="stats">
+      <div class="stat rv" data-d="1"><b>100%</b><span>Free forever</span></div>
+      <div class="stat rv" data-d="2"><b>0</b><span>Data collected</span></div>
+      <div class="stat rv" data-d="3"><b>1-tap</b><span>PDF export</span></div>
+      <div class="stat rv" data-d="4"><b>∞</b><span>Records supported</span></div>
     </div>
   </section>
 
-  <!-- How It Works Section -->
-  <section id="how-it-works" class="section how-it-works">
-    <div class="container">
-      <div class="section-header reveal">
-        <span class="section-subtitle">Workflow</span>
-        <h2 class="section-title">How It Works</h2>
-        <p class="section-desc">Start managing your money in 3 dead-simple steps — no sign-up or backend required.</p>
-      </div>
-
-      <div class="steps-wrapper">
-        <!-- Step 1 -->
-        <div class="step-card reveal delay-1">
-          <div class="step-number">1</div>
-          <h3>Add Expenses</h3>
-          <p>Enter your daily transactions with customizable categories, amounts, and dates in seconds.</p>
-        </div>
-
-        <!-- Step 2 -->
-        <div class="step-card reveal delay-2">
-          <div class="step-number">2</div>
-          <h3>View Statistics</h3>
-          <p>Analyze interactive charts, monthly trend lines, and automated insights to monitor your spending habits.</p>
-        </div>
-
-        <!-- Step 3 -->
-        <div class="step-card reveal delay-3">
-          <div class="step-number">3</div>
-          <h3>Download Report</h3>
-          <p>Export clean, signed PDF summary reports anytime for budgeting, archiving, or tax filing.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Stats Section -->
-  <section id="stats" class="section">
-    <div class="container">
-      <div class="stats-banner reveal">
-        <div class="stats-grid">
-          <div class="stat-item">
-            <div class="stat-number-wrap">
-              <span class="stat-number" data-target="50" data-suffix="+">0</span>
-            </div>
-            <div class="stat-title">Categories</div>
-          </div>
-
-          <div class="stat-item">
-            <div class="stat-number-wrap">
-              <span class="stat-number" data-target="20" data-suffix="">0</span>
-            </div>
-            <div class="stat-title">Currencies</div>
-          </div>
-
-          <div class="stat-item">
-            <div class="stat-number-wrap">
-              <span class="stat-number" data-target="3" data-suffix="">0</span>
-            </div>
-            <div class="stat-title">Charts</div>
-          </div>
-
-          <div class="stat-item">
-            <div class="stat-number-wrap">
-              <span class="stat-number" data-target="100" data-suffix="%">0</span>
-            </div>
-            <div class="stat-title">Free</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CTA Section -->
   <section class="section">
-    <div class="container">
-      <div class="cta-box reveal">
-        <h2 class="cta-title">Ready to Take Control?</h2>
-        <p class="cta-desc">Start tracking your spending today. No credit cards, no account registration — 100% private in your browser.</p>
-        <a href="app.html" class="btn btn-primary btn-lg">Launch App 🚀</a>
-      </div>
+    <div class="cta-card rv">
+      <h2>Ready to own your money?</h2>
+      <p>Launch the dashboard and log your first expense in under a minute.</p>
+      <a href="app.html" class="btn-primary">Enter ExpenseFlow →</a>
     </div>
   </section>
 
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="container">
-      <div class="footer-grid">
-        <div class="footer-brand">
-          <a href="#" class="logo">
-            <span class="logo-icon">💸</span>
-            <span>ExpenseFlow</span>
-          </a>
-          <p>A sleek, modern expense tracker designed to keep your budgeting clean, simple, and private.</p>
-        </div>
-
-        <div class="footer-col">
-          <h4>Navigation</h4>
-          <ul>
-            <li><a href="#features">Features</a></li>
-            <li><a href="#how-it-works">How It Works</a></li>
-            <li><a href="#stats">Stats</a></li>
-            <li><a href="app.html">Launch App</a></li>
-          </ul>
-        </div>
-
-        <div class="footer-col">
-          <h4>Features</h4>
-          <ul>
-            <li><a href="app.html">Smart Analytics</a></li>
-            <li><a href="app.html">PDF Export</a></li>
-            <li><a href="app.html">Multi-Currency</a></li>
-            <li><a href="app.html">Dark & Light Mode</a></li>
-          </ul>
-        </div>
-
-        <div class="footer-col">
-          <h4>Open Source</h4>
-          <ul>
-            <li><a href="https://github.com/luelzelalem848-max/expenseflow" target="_blank" rel="noopener">GitHub Repository</a></li>
-            <li><a href="https://github.com/luelzelalem848-max/expenseflow/blob/main/LICENSE" target="_blank" rel="noopener">MIT License</a></li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="footer-bottom">
-        <div>Made with 💙 by <a href="https://github.com/luelzelalem848-max" target="_blank" rel="noopener">Luel Zelalem</a></div>
-        <div>&copy; ExpenseFlow. All rights reserved.</div>
-      </div>
-    </div>
+  <footer>
+    <a class="nav-logo" href="index.html">💸 <span>ExpenseFlow</span></a>
+    <p>Built by <a href="https://github.com/luelzelalem848-max/expenseflow" target="_blank" rel="noopener">Luel Zelalem</a> · 2026 · Free & open source</p>
   </footer>
 
-  <script src="landing.js"></script>
-<script src="ultra.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="scene3d.js"></script>
+  <script src="ultra.js"></script>
+  <script>
+    // nav scroll state + burger + reveals
+    var nav = document.getElementById('nav');
+    window.addEventListener('scroll', function () {
+      nav.classList.toggle('scrolled', window.scrollY > 30);
+    }, { passive: true });
+    var burger = document.getElementById('burger'), links = document.getElementById('navLinks');
+    burger.addEventListener('click', function () { links.classList.toggle('open'); });
+    links.querySelectorAll('a').forEach(function (a) {
+      a.addEventListener('click', function () { links.classList.remove('open'); });
+    });
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.rv').forEach(function (el) { io.observe(el); });
+  </script>
 </body>
 </html>
