@@ -12,6 +12,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
   <link rel="stylesheet" href="app-lux.css" />
+  <link rel="stylesheet" href="shell.css" />
   <link rel="stylesheet" href="fx-pack.css" />
 </head>
 <body data-logo="💸">
@@ -35,83 +36,102 @@
   </div>
 </div>
 
-  <div class="app">
-    <!-- Header -->
-    <header class="header">
-      <div class="header-top">
-        <h1>💸 ExpenseFlow</h1>
-        <div class="header-controls">
-          <button id="profileBtn" class="header-btn" title="Set your name for PDF signature">👤 Name</button>
-          <select id="currencySelect" class="currency-select" title="Select currency">
-            <option value="USD">🇺🇸 USD ($)</option>
-            <option value="EUR">🇪🇺 EUR (€)</option>
-            <option value="GBP">🇬🇧 GBP (£)</option>
-            <option value="ETB">🇪🇹 ETB (Br)</option>
-            <option value="JPY">🇯🇵 JPY (¥)</option>
-            <option value="INR">🇮🇳 INR (₹)</option>
-            <option value="KES">🇰🇪 KES (KSh)</option>
-            <option value="NGN">🇳🇬 NGN (₦)</option>
-            <option value="AED">🇦🇪 AED (د.إ)</option>
-            <option value="SAR">🇸🇦 SAR (﷼)</option>
-          </select>
-          <button id="themeToggle" class="header-btn" title="Toggle dark/light mode">
-            <span id="themeIcon">🌙</span>
-          </button>
+<div class="app">
+  <!-- ======== SIDEBAR ======== -->
+  <aside class="fx-side">
+    <div class="brand">💸 <span>ExpenseFlow</span></div>
+    <span class="side-tag">Command Center</span>
+    <nav>
+      <a href="#overview">📊 Overview</a>
+      <a href="#charts">📈 Analytics</a>
+      <a href="#add">➕ Add Expense</a>
+      <a href="#records">🧾 Records</a>
+    </nav>
+    <div class="side-controls">
+      <button id="profileBtn" class="header-btn" title="Set your name for PDF signature">👤 Your Name</button>
+      <select id="currencySelect" class="currency-select" title="Select currency">
+        <option value="USD">🇺🇸 USD ($)</option>
+        <option value="EUR">🇪🇺 EUR (€)</option>
+        <option value="GBP">🇬🇧 GBP (£)</option>
+        <option value="ETB">🇪🇹 ETB (Br)</option>
+        <option value="JPY">🇯🇵 JPY (¥)</option>
+        <option value="INR">🇮🇳 INR (₹)</option>
+        <option value="KES">🇰🇪 KES (KSh)</option>
+        <option value="NGN">🇳🇬 NGN (₦)</option>
+        <option value="AED">🇦🇪 AED (د.إ)</option>
+        <option value="SAR">🇸🇦 SAR (﷼)</option>
+      </select>
+      <button id="themeToggle" class="header-btn" title="Toggle dark/light mode">
+        <span id="themeIcon">🌙</span> Theme
+      </button>
+      <div class="side-user">
+        <div class="avatar">💸</div>
+        <div>
+          <b>Pro Budget</b>
+          <small>Local · Private</small>
         </div>
       </div>
-      <p class="tagline">Track your spending. Own your budget.</p>
-    </header>
+    </div>
+  </aside>
 
-    <!-- Stats Dashboard -->
-    <section class="stats-dashboard">
-      <div class="stat-row">
-        <div class="stat-card primary">
-          <span class="stat-icon">💰</span>
-          <span class="stat-label">Total Spent</span>
-          <span class="stat-value" id="totalSpent">$0.00</span>
-        </div>
-        <div class="stat-card">
-          <span class="stat-icon">📊</span>
-          <span class="stat-label">Entries</span>
-          <span class="stat-value" id="entryCount">0</span>
-        </div>
-        <div class="stat-card">
-          <span class="stat-icon">📅</span>
-          <span class="stat-label">This Month</span>
-          <span class="stat-value" id="monthSpent">$0.00</span>
-        </div>
-        <div class="stat-card">
-          <span class="stat-icon">📉</span>
-          <span class="stat-label">Avg / Entry</span>
-          <span class="stat-value" id="avgSpent">$0.00</span>
-        </div>
+  <!-- ======== MAIN ======== -->
+  <main class="fx-main">
+    <div class="fx-topbar">
+      <h2>Dashboard</h2>
+      <div class="top-actions">
+        <input type="text" id="searchInput" placeholder="🔍 Search expenses..." class="search-input" />
+        <button id="downloadPdf" class="btn-pdf" title="Download PDF report">📄 Export PDF</button>
       </div>
-      <div class="stat-row">
-        <div class="stat-card accent-green">
-          <span class="stat-icon">🏆</span>
-          <span class="stat-label">Biggest Expense</span>
-          <span class="stat-value sm" id="biggestExpense">—</span>
-        </div>
-        <div class="stat-card accent-orange">
-          <span class="stat-icon">📌</span>
-          <span class="stat-label">Top Category</span>
-          <span class="stat-value sm" id="topCategory">—</span>
-        </div>
-        <div class="stat-card accent-purple">
-          <span class="stat-icon">🗓️</span>
-          <span class="stat-label">Daily Average</span>
-          <span class="stat-value" id="dailyAvg">$0.00</span>
-        </div>
-        <div class="stat-card accent-pink">
-          <span class="stat-icon">🔥</span>
-          <span class="stat-label">Active Days</span>
-          <span class="stat-value" id="activeDays">0</span>
-        </div>
+    </div>
+
+    <!-- HERO -->
+    <section class="fx-hero" id="overview">
+      <div class="hero-glow"></div>
+      <span class="hero-kicker">💰 Total Spent</span>
+      <div class="hero-num" id="totalSpent" data-count>$0.00</div>
+      <div class="hero-row">
+        <span class="hero-chip">📅 This Month <b id="monthSpent" data-count>$0.00</b></span>
+        <span class="hero-chip">🔥 <b id="activeDays" data-count>0</b> Active Days</span>
+        <a href="#add" class="hero-chip" style="text-decoration:none; background:linear-gradient(135deg, #6366f1, #8b5cf6); color:#fff; border:none; font-weight:600;">➕ New Expense</a>
       </div>
     </section>
 
-    <!-- Charts Section -->
-    <section class="charts-section">
+    <!-- BENTO STATS -->
+    <section class="fx-bento">
+      <div class="stat-card">
+        <span class="stat-icon">📊</span>
+        <span class="stat-label">Entries</span>
+        <span class="stat-value" id="entryCount" data-count>0</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-icon">📉</span>
+        <span class="stat-label">Avg / Entry</span>
+        <span class="stat-value" id="avgSpent" data-count>$0.00</span>
+      </div>
+      <div class="stat-card accent-purple">
+        <span class="stat-icon">🗓️</span>
+        <span class="stat-label">Daily Average</span>
+        <span class="stat-value" id="dailyAvg" data-count>$0.00</span>
+      </div>
+      <div class="stat-card accent-green">
+        <span class="stat-icon">🏆</span>
+        <span class="stat-label">Biggest Expense</span>
+        <span class="stat-value sm" id="biggestExpense">—</span>
+      </div>
+      <div class="stat-card accent-orange">
+        <span class="stat-icon">📌</span>
+        <span class="stat-label">Top Category</span>
+        <span class="stat-value sm" id="topCategory">—</span>
+      </div>
+      <div class="stat-card accent-pink">
+        <span class="stat-icon">🛡️</span>
+        <span class="stat-label">Privacy</span>
+        <span class="stat-value sm">100% On-Device</span>
+      </div>
+    </section>
+
+    <!-- CHARTS -->
+    <section class="charts-section" id="charts">
       <div class="chart-box">
         <h3>📊 Spending by Category</h3>
         <div class="chart-wrap"><canvas id="categoryChart"></canvas></div>
@@ -132,9 +152,9 @@
       </div>
     </section>
 
-    <!-- Add Expense Form -->
-    <section class="form-section">
-      <h2>Add Expense</h2>
+    <!-- ADD FORM -->
+    <section class="form-section" id="add">
+      <h2>➕ Add Expense</h2>
       <form id="expenseForm" class="expense-form">
         <input type="text" id="description" placeholder="Description (e.g. Coffee at Starbucks)" required />
         <input type="number" id="amount" placeholder="Amount" step="0.01" min="0.01" required />
@@ -205,21 +225,17 @@
       </form>
     </section>
 
-    <!-- Expense List -->
-    <section class="list-section">
+    <!-- EXPENSE LIST -->
+    <section class="list-section" id="records">
       <div class="list-header">
-        <h2>Recent Expenses</h2>
-        <div class="list-controls">
-          <input type="text" id="searchInput" placeholder="🔍 Search..." class="search-input" />
-          <button id="downloadPdf" class="btn-pdf" title="Download PDF report">📄 Download PDF</button>
-        </div>
+        <h2>🧾 Recent Expenses</h2>
       </div>
       <ul id="expenseList" class="expense-list">
         <li class="empty-state">No expenses yet. Add one above! 👆</li>
       </ul>
     </section>
 
-    <!-- Edit Modal -->
+    <!-- EDIT MODAL -->
     <div class="modal-overlay" id="editModal" style="display:none;">
       <div class="modal">
         <h2>✏️ Edit Expense</h2>
@@ -240,7 +256,7 @@
       </div>
     </div>
 
-    <!-- Profile Modal -->
+    <!-- PROFILE MODAL -->
     <div class="modal-overlay" id="profileModal" style="display:none;">
       <div class="modal">
         <h2>👤 Your Name (for PDF signature)</h2>
@@ -259,13 +275,15 @@
     <footer class="footer">
       <p><a href="index.html" class="back-home-link" style="margin-right: 12px; color: var(--primary); font-weight: 600; text-decoration: none;">← Back to Home</a> | Made with 💙 by <span id="footerName">Luel Zelalem</span> — <a href="https://github.com/luelzelalem848-max/expenseflow" target="_blank">View on GitHub</a></p>
     </footer>
-  </div>
+  </main>
+</div>
 
-  <script src="app.js"></script>
+<script src="app.js"></script>
 <script src="login.js"></script>
 <script src="ultra.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-  <script src="app3d.js"></script>
-  <script src="fx-pack.js"></script>
+<script src="kinetic.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="app3d.js"></script>
+<script src="fx-pack.js"></script>
 </body>
 </html>
