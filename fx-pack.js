@@ -80,6 +80,6 @@
   /* ---------- VERSION CHIP ---------- */
   var v = document.createElement('div');
   v.id = 'fx-ver';
-  v.textContent = '\u2726 ULTRA v4';
+  v.textContent = '\u2726 ULTRA v5';
   document.body.appendChild(v);
 })();

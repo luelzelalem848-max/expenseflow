@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ExpenseFlow — Sign In</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="login-screen.css" />
+</head>
+<body data-logo="💸">
+<script>
+  /* already signed in? go straight to the app */
+  try {
+    if (localStorage.getItem('expenseflow_name')) location.replace('app.html');
+  } catch (e) {}
+</script>
+
+<div class="lg-stage">
+  <canvas id="scene3d"></canvas>
+  <div class="lg-vignette"></div>
+</div>
+
+<div class="lg-grid">
+  <div class="lg-brand rv-in">
+    <div class="lg-brand-logo">💸</div>
+    <h1 class="lg-brand-name">ExpenseFlow</h1>
+    <p class="lg-brand-tag">Your financial command center. Private, beautiful, fast.</p>
+    <div class="lg-brand-points">
+      <span>✦ 100% on-device privacy</span>
+      <span>✦ Live charts & insights</span>
+      <span>✦ PDF reports with your signature</span>
+    </div>
+    <a class="lg-back" href="index.html">← Back to site</a>
+  </div>
+
+  <div class="lg-center">
+    <form class="lg-card" id="lgCard" autocomplete="off">
+      <div class="lg-halo"></div>
+      <div class="lg-logo">💸</div>
+      <h2 class="lg-title">Welcome back.</h2>
+      <p class="lg-sub">Enter your name to unlock your dashboard.</p>
+      <input class="lg-input" id="lgName" type="text" placeholder="Your name..." maxlength="40" autocomplete="off" />
+      <p class="lg-error" id="lgError">Please tell us your name first ✍️</p>
+      <button class="lg-cta" type="submit" id="lgCta">Enter Dashboard →</button>
+      <p class="lg-foot">🔒 Your data never leaves this device. No accounts, ever.</p>
+    </form>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="scene3d.js"></script>
+<script src="fx-pack.js"></script>
+<script>
+(function () {
+  var input = document.getElementById('lgName'),
+      card = document.getElementById('lgCard'),
+      err = document.getElementById('lgError'),
+      cta = document.getElementById('lgCta');
+  setTimeout(function () { input.focus(); }, 700);
+
+  function go() {
+    var name = (input.value || '').trim();
+    if (!name) {
+      err.classList.add('lg-show');
+      card.classList.remove('lg-shake');
+      void card.offsetWidth;
+      card.classList.add('lg-shake');
+      input.focus();
+      return;
+    }
+    localStorage.setItem('expenseflow_name', name);
+    cta.textContent = 'Unlocking...';
+    card.classList.add('lg-closing');
+    setTimeout(function () { location.href = 'app.html'; }, 460);
+  }
+  card.addEventListener('submit', function (e) { e.preventDefault(); go(); });
+  input.addEventListener('input', function () { err.classList.remove('lg-show'); });
+})();
+</script>
+</body>
+</html>
