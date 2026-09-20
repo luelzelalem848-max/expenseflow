@@ -1,0 +1,72 @@
+/* ================================================================
+   Cinematic animated background system
+   Animated image (Ken Burns) + cinematic overlay + floating particles
+   ================================================================ */
+
+html { background: #04070f; }
+body { background: transparent !important; }
+
+.fx-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* The moving image — slow cinematic zoom & drift */
+.fx-bg-img {
+  position: absolute;
+  inset: -6%;
+  background: url('assets/bg.png') center / cover no-repeat;
+  animation: fx-kenburns 58s ease-in-out infinite alternate;
+  will-change: transform;
+}
+@keyframes fx-kenburns {
+  0%   { transform: scale(1.03) translate3d(0, 0, 0); }
+  100% { transform: scale(1.17) translate3d(-2.2%, -1.6%, 0); }
+}
+
+/* Readability + mood overlay */
+.fx-bg-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(4,7,18,0.62) 0%, rgba(4,7,18,0.42) 38%, rgba(4,7,18,0.74) 100%);
+}
+
+/* Breathing color glow */
+.fx-bg-glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 75% 15%, rgba(129,140,248,0.20) 0%, transparent 55%),radial-gradient(ellipse at 15% 85%, rgba(192,132,252,0.14) 0%, transparent 55%);
+  animation: fx-glow-e 14s ease-in-out infinite alternate;
+  mix-blend-mode: screen;
+}
+@keyframes fx-glow-e { 0% { opacity: .55; } 100% { opacity: 1; } }
+@keyframes fx-glow-f { 0% { opacity: .5; }  100% { opacity: 1; } }
+@keyframes fx-glow-r { 0% { opacity: .6; } 100% { opacity: 1; } }
+
+/* Floating themed particles */
+.fx-bg-particles { position: absolute; inset: 0; }
+.fx-bg-particles span {
+  position: absolute;
+  left: var(--x);
+  bottom: -10vh;
+  font-size: calc(1.5rem * var(--s));
+  opacity: 0;
+  animation: fx-float var(--d) linear var(--del) infinite;
+  filter: drop-shadow(0 0 10px rgba(129,140,248,0.55));
+  will-change: transform, opacity;
+}
+@keyframes fx-float {
+  0%   { transform: translate3d(0, 0, 0) rotate(0deg); opacity: 0; }
+  8%   { opacity: .38; }
+  50%  { opacity: .55; }
+  92%  { opacity: .22; }
+  100% { transform: translate3d(3vw, -120vh, 0) rotate(340deg); opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fx-bg-img, .fx-bg-glow, .fx-bg-particles span { animation: none; }
+  .fx-bg-particles { display: none; }
+}
