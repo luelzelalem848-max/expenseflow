@@ -10,6 +10,7 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
+  <link href="https://api.fontshare.com/v2/css?f[]=clash-display@500,600,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="app-lux.css" />
   <link rel="stylesheet" href="shell.css" />
   <link rel="stylesheet" href="fx-pack.css" />
@@ -17,7 +18,8 @@
 <body data-logo="💸">
 <div class="fx-bg" aria-hidden="true">
   <div class="fx-bg-img"></div>
-  <div class="fx-bg-overlay"></div>
+  <video class="fx-video" autoplay muted loop playsinline preload="auto" disablepictureinpicture aria-hidden="true"><source src="assets/bg-video.mp4" type="video/mp4"></video>
+<div class="fx-bg-overlay"></div>
   <div class="fx-bg-glow"></div>
   <div class="fx-bg-particles">
     <span style="--x:6%;--d:26s;--del:-3s;--s:1.1">💵</span>
@@ -98,32 +100,32 @@
     <!-- BENTO STATS -->
     <section class="fx-bento">
       <div class="stat-card">
-        <span class="stat-icon">📊</span>
+        <span class="stat-icon"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20v-8"/><path d="M10 20V6"/><path d="M16 20v-9"/><path d="M22 20H2"/></svg></span>
         <span class="stat-label">Entries</span>
         <span class="stat-value" id="entryCount" data-count>0</span>
       </div>
       <div class="stat-card">
-        <span class="stat-icon">📉</span>
+        <span class="stat-icon"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17l6-6 4 4 7-8"/><path d="M16 7h4v4"/></svg></span>
         <span class="stat-label">Avg / Entry</span>
         <span class="stat-value" id="avgSpent" data-count>$0.00</span>
       </div>
       <div class="stat-card accent-purple">
-        <span class="stat-icon">🗓️</span>
+        <span class="stat-icon"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18"/><path d="M8 3v4"/><path d="M16 3v4"/></svg></span>
         <span class="stat-label">Daily Average</span>
         <span class="stat-value" id="dailyAvg" data-count>$0.00</span>
       </div>
       <div class="stat-card accent-green">
-        <span class="stat-icon">🏆</span>
+        <span class="stat-icon"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 4h8v5a4 4 0 0 1-8 0V4z"/><path d="M8 5H5a3 3 0 0 0 3 4"/><path d="M16 5h3a3 3 0 0 1-3 4"/><path d="M12 13v4"/><path d="M9 21h6"/></svg></span>
         <span class="stat-label">Biggest Expense</span>
         <span class="stat-value sm" id="biggestExpense">—</span>
       </div>
       <div class="stat-card accent-orange">
-        <span class="stat-icon">📌</span>
+        <span class="stat-icon"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-5-7-11a7 7 0 0 1 14 0c0 6-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></span>
         <span class="stat-label">Top Category</span>
         <span class="stat-value sm" id="topCategory">—</span>
       </div>
       <div class="stat-card accent-pink">
-        <span class="stat-icon">🛡️</span>
+        <span class="stat-icon"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v5c0 5-3.5 8.5-7 10-3.5-1.5-7-5-7-10V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg></span>
         <span class="stat-label">Privacy</span>
         <span class="stat-value sm">100% On-Device</span>
       </div>
@@ -280,7 +282,7 @@
 <script src="app.js"></script>
 <script src="ultra.js"></script>
 <script src="kinetic.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="vendor/three.min.js"></script>
 <script src="app3d.js"></script>
 <script src="fx-pack.js"></script>
 </body>

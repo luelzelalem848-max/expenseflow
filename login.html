@@ -7,6 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://api.fontshare.com/v2/css?f[]=clash-display@500,600,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="login-screen.css" />
 </head>
 <body data-logo="💸">
@@ -18,7 +19,8 @@
 </script>
 
 <div class="lg-stage">
-  <canvas id="scene3d"></canvas>
+  <video class="fx-video" autoplay muted loop playsinline preload="auto" disablepictureinpicture aria-hidden="true"><source src="assets/bg-video.mp4" type="video/mp4"></video>
+<canvas id="scene3d"></canvas>
   <div class="lg-vignette"></div>
 </div>
 
@@ -49,7 +51,7 @@
   </div>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="vendor/three.min.js"></script>
 <script src="scene3d.js"></script>
 <script src="fx-pack.js"></script>
 <script>

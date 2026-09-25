@@ -73,3 +73,16 @@
 @media (prefers-reduced-motion: reduce) {
   .fx-marquee-track, .fx-pre-logo { animation: none; }
 }
+
+/* ---------- v6: cinematic video background layer ---------- */
+.fx-video {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; pointer-events: none;
+  opacity: .5; filter: brightness(.85) saturate(1.2);
+  z-index: 0;
+}
+.fx-bg .fx-video { opacity: .42; }
+.fx-video::-webkit-media-controls { display: none !important; }
+.b-icon { color: var(--gold, #f5b942); }
+.b-icon svg, .stat-icon svg { filter: drop-shadow(0 0 9px currentColor); opacity: .92; }
+.stat-icon { line-height: 0; }

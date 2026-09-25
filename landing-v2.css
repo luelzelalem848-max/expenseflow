@@ -5,7 +5,7 @@
   --a: #818cf8; --b: #c084fc; --gold: #f5b942;
   --bg: #04070f; --card: rgba(18,22,40,.6); --line: rgba(255,255,255,.09);
   --txt: #eef1fa; --dim: rgba(238,241,250,.6);
-  --display: 'Space Grotesk', sans-serif; --body: 'Inter', system-ui, sans-serif;
+  --display: 'Clash Display', 'Space Grotesk', sans-serif; --body: 'Inter', system-ui, sans-serif;
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; }
