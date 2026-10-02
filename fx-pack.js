@@ -26,28 +26,6 @@
     }
   }, reduce ? 8 : 42);
 
-  /* ---------- CURSOR AURA ---------- */
-  if (fine) {
-    var cur = document.createElement('div');
-    cur.id = 'fx-cursor';
-    document.body.appendChild(cur);
-    var cx = -100, cy = -100, hx = -100, hy = -100;
-    window.addEventListener('pointermove', function (e) {
-      hx = e.clientX; hy = e.clientY;
-      cur.classList.add('fx-on');
-    }, { passive: true });
-    document.addEventListener('mouseleave', function () { cur.classList.remove('fx-on'); });
-    document.addEventListener('mouseover', function (e) {
-      cur.classList.toggle('fx-grow', !!e.target.closest('a, button, input, select, .bento-card, .stat-card'));
-    });
-    (function loop() {
-      if (document.hidden) { requestAnimationFrame(loop); return; }
-      cx += (hx - cx) * .18; cy += (hy - cy) * .18;
-      cur.style.transform = 'translate(' + cx + 'px,' + cy + 'px)' + (cur.classList.contains('fx-grow') ? ' scale(2.3)' : '');
-      requestAnimationFrame(loop);
-    })();
-  }
-
   /* ---------- CLICK SPARKS ---------- */
   var COLORS = ['#34d399', '#f5b942', '#f5b942', '#ffffff', '#fd79a6', '#ff8e53'];
   document.addEventListener('pointerdown', function (e) {

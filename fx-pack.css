@@ -15,21 +15,6 @@
 .fx-pre-bar { width: 180px; height: 3px; border-radius: 99px; background: rgba(255,255,255,.12); overflow: hidden; }
 .fx-pre-bar i { display: block; height: 100%; width: 0%; border-radius: 99px; background: linear-gradient(90deg, #34d399, #f5b942, #f5b942); transition: width .12s ease; }
 
-/* cursor aura (desktop) */
-#fx-cursor {
-  position: fixed; left: 0; top: 0; z-index: 2147483500;
-  width: 30px; height: 30px; margin: -15px 0 0 -15px;
-  border-radius: 50%; pointer-events: none;
-  background: radial-gradient(circle, rgba(255,255,255,.22), transparent 65%);
-  border: 1px solid rgba(255,255,255,.35);
-  mix-blend-mode: screen;
-  transition: transform .16s ease, opacity .3s;
-  opacity: 0;
-}
-#fx-cursor.fx-on { opacity: 1; }
-#fx-cursor.fx-grow { transform: scale(2.3); }
-@media (hover: none), (pointer: coarse) { #fx-cursor { display: none; } }
-
 /* click sparks */
 .fx-spark {
   position: fixed; z-index: 2147483400; pointer-events: none;
