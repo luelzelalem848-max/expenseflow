@@ -28,7 +28,7 @@
   </nav>
 
   <header class="hero3d">
-    <video class="fx-video" autoplay muted loop playsinline preload="auto" disablepictureinpicture aria-hidden="true"><source src="assets/bg-video.mp4" type="video/mp4"></video>
+    <video class="fx-video" autoplay muted loop playsinline preload="metadata" disablepictureinpicture aria-hidden="true"><source src="assets/bg-video.mp4" type="video/mp4"></video>
 <canvas id="scene3d"></canvas>
     <div class="hero-inner">
       <span class="hero-badge rv">💸 Personal finance, reimagined</span>
@@ -124,6 +124,7 @@
     document.querySelectorAll('.rv').forEach(function (el) { io.observe(el); });
   </script>
   <script src="fx-pack.js?v=8"></script>
+  <script>/* pause bg videos when off-screen */(function(){var vs=document.querySelectorAll('.fx-video,.fx-video-fixed');if(!vs.length||!('IntersectionObserver' in window))return;var io=new IntersectionObserver(function(es){es.forEach(function(en){var v=en.target;if(en.isIntersecting){v.play().catch(function(){});}else{v.pause();}});},{threshold:0.05});vs.forEach(function(v){io.observe(v);});})();</script>
   <script src="modern.js?v=8"></script>
 </body>
 </html>

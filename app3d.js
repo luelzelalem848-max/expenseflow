@@ -11,7 +11,7 @@
   var renderer;
   try { renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true }); }
   catch (e) { canvas.remove(); return; }
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.5));
 
   var scene = new THREE.Scene();
   var camera = new THREE.PerspectiveCamera(50, 1, 0.1, 100);

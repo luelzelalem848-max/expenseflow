@@ -21,7 +21,7 @@
 <body data-logo="💸">
 <div class="fx-bg" aria-hidden="true">
   <div class="fx-bg-img"></div>
-  <video class="fx-video" autoplay muted loop playsinline preload="auto" disablepictureinpicture aria-hidden="true"><source src="assets/bg-video.mp4" type="video/mp4"></video>
+  <video class="fx-video" autoplay muted loop playsinline preload="metadata" disablepictureinpicture aria-hidden="true"><source src="assets/bg-video.mp4" type="video/mp4"></video>
 <div class="fx-bg-overlay"></div>
   <div class="fx-bg-glow"></div>
   <div class="fx-bg-particles">
@@ -289,6 +289,7 @@
 <script src="vendor/three.min.js?v=8"></script>
 <script src="app3d.js?v=8"></script>
 <script src="fx-pack.js?v=8"></script>
+  <script>/* pause bg videos when off-screen */(function(){var vs=document.querySelectorAll('.fx-video,.fx-video-fixed');if(!vs.length||!('IntersectionObserver' in window))return;var io=new IntersectionObserver(function(es){es.forEach(function(en){var v=en.target;if(en.isIntersecting){v.play().catch(function(){});}else{v.pause();}});},{threshold:0.05});vs.forEach(function(v){io.observe(v);});})();</script>
   <script src="modern.js?v=8"></script>
 </body>
 </html>

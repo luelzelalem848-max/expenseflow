@@ -29,11 +29,12 @@
       W = cv.width = window.innerWidth; H = cv.height = window.innerHeight;
     }
     resize(); window.addEventListener('resize', resize);
-    for (var i = 0; i < 42; i++) dots.push({
+    for (var i = 0; i < 24; i++) dots.push({
       x: Math.random(), y: Math.random(), r: 0.6 + Math.random() * 1.6,
       s: 0.06 + Math.random() * 0.28, o: 0.15 + Math.random() * 0.5, t: Math.random() * 6.28
     });
     (function loop() {
+      if (document.hidden) { requestAnimationFrame(loop); return; }
       ctx.clearRect(0, 0, W, H);
       for (var i = 0; i < dots.length; i++) {
         var d = dots[i];

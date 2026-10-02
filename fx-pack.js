@@ -11,6 +11,8 @@
                   '<div class="fx-pre-count" id="fxPreN">0%</div>';
   document.body.appendChild(pre);
   var n = 0, bar = document.getElementById('fxPreBar'), num = document.getElementById('fxPreN');
+  setTimeout(function () { if (pre && pre.parentNode) pre.classList.add('fx-done'); }, 3000);
+  setTimeout(function () { if (pre && pre.parentNode) pre.remove(); }, 3800);
   var iv = setInterval(function () {
     n = Math.min(100, n + Math.ceil(Math.random() * 14));
     if (bar) bar.style.width = n + '%';
@@ -39,6 +41,7 @@
       cur.classList.toggle('fx-grow', !!e.target.closest('a, button, input, select, .bento-card, .stat-card'));
     });
     (function loop() {
+      if (document.hidden) { requestAnimationFrame(loop); return; }
       cx += (hx - cx) * .18; cy += (hy - cy) * .18;
       cur.style.transform = 'translate(' + cx + 'px,' + cy + 'px)' + (cur.classList.contains('fx-grow') ? ' scale(2.3)' : '');
       requestAnimationFrame(loop);
