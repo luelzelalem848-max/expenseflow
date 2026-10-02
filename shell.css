@@ -27,15 +27,15 @@
   padding: 0 .4rem;
 }
 .fx-side .brand span {
-  background: linear-gradient(120deg, #818cf8, #c084fc);
+  background: linear-gradient(120deg, #34d399, #f5b942);
   -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
 }
-.fx-side .side-tag { font-size: .74rem; color: rgba(255,255,255,.42); padding: 0 .4rem; letter-spacing: 1px; text-transform: uppercase; }
+.fx-side .side-tag { font-size: .74rem; color: rgba(255,255,255,.62); padding: 0 .4rem; letter-spacing: 1px; text-transform: uppercase; }
 .fx-side nav { display: flex; flex-direction: column; gap: .35rem; }
 .fx-side nav a, .fx-side nav button {
   display: flex; align-items: center; gap: .7rem;
   padding: .72rem .95rem; border-radius: 13px; border: none; background: transparent;
-  color: rgba(255,255,255,.6); font-size: .92rem; font-weight: 500; text-align: left;
+  color: rgba(255,255,255,.82); font-size: .92rem; font-weight: 500; text-align: left;
   cursor: pointer; text-decoration: none;
   transition: background .25s, color .25s, transform .25s, box-shadow .25s;
 }
@@ -43,10 +43,10 @@
   background: rgba(255,255,255,.06); color: #fff; transform: translateX(5px);
 }
 .fx-side nav .active {
-  background: linear-gradient(135deg, #818cf833, #c084fc22) !important;
+  background: linear-gradient(135deg, #34d39933, #f5b94222) !important;
   color: #fff !important;
   border: 1px solid rgba(255,255,255,.12);
-  box-shadow: 0 8px 24px #818cf822;
+  box-shadow: 0 8px 24px #34d39922;
 }
 .fx-side .side-controls { margin-top: auto; display: flex; flex-direction: column; gap: .55rem; padding: 0 .2rem; }
 .fx-side .side-controls select, .fx-side .side-controls button {
@@ -60,11 +60,11 @@
 .fx-side .side-user .avatar {
   width: 38px; height: 38px; border-radius: 12px; flex: none;
   display: grid; place-items: center; font-size: 1.05rem;
-  background: linear-gradient(135deg, #818cf8, #c084fc);
-  box-shadow: 0 8px 20px #818cf844;
+  background: linear-gradient(135deg, #34d399, #f5b942);
+  box-shadow: 0 8px 20px #34d39944;
 }
 .fx-side .side-user b { font-size: .88rem; color: #fff; font-weight: 600; display: block; }
-.fx-side .side-user small { font-size: .7rem; color: rgba(255,255,255,.45); letter-spacing: .5px; text-transform: uppercase; }
+.fx-side .side-user small { font-size: .7rem; color: rgba(255,255,255,.62); letter-spacing: .5px; text-transform: uppercase; }
 
 /* ---------- MAIN ---------- */
 .fx-main { padding: 1.7rem 2.1rem 3.5rem; min-width: 0; }
@@ -84,7 +84,7 @@
   padding: 2.4rem 2.4rem 2.2rem;
   border: 1px solid rgba(255,255,255,.1);
   background:
-    radial-gradient(ellipse 60% 90% at 85% 10%, #818cf830, transparent 60%),
+    radial-gradient(ellipse 60% 90% at 85% 10%, #34d39930, transparent 60%),
     linear-gradient(160deg, rgba(18,22,40,.6), rgba(255,255,255,.02));
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
@@ -97,9 +97,9 @@
 .fx-hero .hero-num {
   font-family: var(--display, 'Space Grotesk', sans-serif);
   font-size: clamp(2.7rem, 7vw, 4.8rem); font-weight: 700; line-height: 1; letter-spacing: -2px;
-  background: linear-gradient(120deg, #fff 30%, #818cf8 75%, #c084fc);
+  background: linear-gradient(120deg, #fff 30%, #34d399 75%, #f5b942);
   -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
-  filter: drop-shadow(0 6px 30px #818cf855);
+  filter: drop-shadow(0 6px 30px #34d39955);
   margin: .5rem 0 .6rem;
 }
 .fx-hero .hero-row { display: flex; gap: .8rem; flex-wrap: wrap; align-items: center; }
@@ -112,7 +112,7 @@
 .fx-hero .hero-chip b { color: #fff; }
 .fx-hero .hero-glow {
   position: absolute; right: -80px; top: -80px; width: 320px; height: 320px; border-radius: 50%;
-  background: radial-gradient(circle, #c084fc33, transparent 70%); pointer-events: none;
+  background: radial-gradient(circle, #f5b94233, transparent 70%); pointer-events: none;
 }
 
 /* ---------- BENTO TILES ---------- */

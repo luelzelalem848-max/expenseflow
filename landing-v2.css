@@ -2,7 +2,7 @@
    DRIBBBLE-GRADE LANDING — 3D hero, bento grid, display type
    ================================================================ */
 :root {
-  --a: #818cf8; --b: #c084fc; --gold: #f5b942;
+  --a: #34d399; --b: #f5b942; --gold: #f5b942;
   --bg: #04070f; --card: rgba(18,22,40,.6); --line: rgba(255,255,255,.09);
   --txt: #eef1fa; --dim: rgba(238,241,250,.6);
   --display: 'Clash Display', 'Space Grotesk', sans-serif; --body: 'Inter', system-ui, sans-serif;
@@ -11,14 +11,14 @@
 html { scroll-behavior: smooth; }
 body {
   background:
-    radial-gradient(ellipse 80% 50% at 70% -10%, #818cf826, transparent 60%),
-    radial-gradient(ellipse 60% 40% at 10% 110%, #c084fc1f, transparent 60%),
+    radial-gradient(ellipse 80% 50% at 70% -10%, #34d39926, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 10% 110%, #f5b9421f, transparent 60%),
     var(--bg);
   color: var(--txt);
   font-family: var(--body);
   overflow-x: hidden;
 }
-::selection { background: #818cf855; }
+::selection { background: #34d39955; }
 
 /* ---------- NAV ---------- */
 .nav {
@@ -43,10 +43,10 @@ body {
 .nav-cta {
   padding: .6rem 1.3rem; border-radius: 12px; font-weight: 600; text-decoration: none;
   background: linear-gradient(135deg, var(--a), var(--b)); color: #fff;
-  box-shadow: 0 8px 24px #818cf844; transition: transform .25s, box-shadow .25s;
+  box-shadow: 0 8px 24px #34d39944; transition: transform .25s, box-shadow .25s;
   display: inline-block;
 }
-.nav-cta:hover { transform: translateY(-2px); box-shadow: 0 12px 32px #818cf866; }
+.nav-cta:hover { transform: translateY(-2px); box-shadow: 0 12px 32px #34d39966; }
 .nav-burger { display: none; background: none; border: none; color: var(--txt); font-size: 1.6rem; cursor: pointer; }
 
 /* ---------- HERO ---------- */
@@ -87,10 +87,10 @@ body {
   padding: 1rem 2.2rem; border-radius: 16px;
   background: linear-gradient(135deg, var(--a), var(--b)); color: #fff;
   font-family: var(--display); font-weight: 600; font-size: 1.05rem; text-decoration: none;
-  box-shadow: 0 16px 40px #818cf855, inset 0 1px 0 rgba(255,255,255,.25);
+  box-shadow: 0 16px 40px #34d39955, inset 0 1px 0 rgba(255,255,255,.25);
   transition: transform .25s, box-shadow .25s;
 }
-.btn-primary:hover { transform: translateY(-3px); box-shadow: 0 20px 52px #818cf877; }
+.btn-primary:hover { transform: translateY(-3px); box-shadow: 0 20px 52px #34d39977; }
 .btn-ghost {
   display: inline-block; padding: 1rem 2.2rem; border-radius: 16px;
   border: 1px solid var(--line); color: var(--txt); background: rgba(255,255,255,.04);
@@ -128,7 +128,7 @@ body {
 .b-icon {
   width: 52px; height: 52px; border-radius: 14px; display: grid; place-items: center;
   font-size: 1.5rem; margin-bottom: auto;
-  background: linear-gradient(135deg, #818cf833, #c084fc22);
+  background: linear-gradient(135deg, #34d39933, #f5b94222);
   border: 1px solid var(--line);
 }
 .bento-card h3 { font-family: var(--display); font-size: 1.15rem; font-weight: 600; }
@@ -145,7 +145,7 @@ body {
   position: relative; text-align: center; border-radius: 30px; overflow: hidden;
   padding: 5rem 6vw; border: 1px solid var(--line);
   background:
-    radial-gradient(ellipse at 50% 0%, #818cf840, transparent 70%),
+    radial-gradient(ellipse at 50% 0%, #34d39940, transparent 70%),
     linear-gradient(160deg, var(--card), rgba(255,255,255,.02));
 }
 .cta-card h2 { font-family: var(--display); font-size: clamp(2rem, 5.5vw, 3.6rem); font-weight: 700; letter-spacing: -1px; margin-bottom: 1rem; }

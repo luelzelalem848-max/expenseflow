@@ -14,6 +14,7 @@
   <link rel="stylesheet" href="app-lux.css" />
   <link rel="stylesheet" href="shell.css" />
   <link rel="stylesheet" href="fx-pack.css" />
+  <link rel="stylesheet" href="theme.css" />
   <link rel="stylesheet" href="modern.css" />
 <script type="speculationrules">{"prefetch":[{"source":"document","where":{"href_matches":"/*"},"eagerness":"conservative"}]}</script>
 </head>
@@ -95,7 +96,7 @@
       <div class="hero-row">
         <span class="hero-chip">📅 This Month <b id="monthSpent" data-count>$0.00</b></span>
         <span class="hero-chip">🔥 <b id="activeDays" data-count>0</b> Active Days</span>
-        <a href="#add" class="hero-chip" style="text-decoration:none; background:linear-gradient(135deg, #6366f1, #8b5cf6); color:#fff; border:none; font-weight:600;">➕ New Expense</a>
+        <a href="#add" class="hero-chip" style="text-decoration:none; background:linear-gradient(135deg, #10b981, #8b5cf6); color:#fff; border:none; font-weight:600;">➕ New Expense</a>
       </div>
     </section>
 
@@ -247,6 +248,7 @@
           <input type="text" id="editDescription" required />
           <label>Amount</label>
           <input type="number" id="editAmount" step="0.01" min="0.01" required />
+          <small id="editAmountHint" class="modal-hint"></small>
           <label>Category</label>
           <select id="editCategory" required></select>
           <label>Date</label>

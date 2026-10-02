@@ -1,0 +1,64 @@
+/* ================================================================
+   LIGHT MODE — complete theme for the shell + cards
+   ================================================================ */
+[data-theme="light"] body, [data-theme="light"] .app { background: #eef1f8 !important; color: #0f172a; }
+[data-theme="light"] .fx-bg-img, [data-theme="light"] .fx-video, [data-theme="light"] .fx-bg-glow { opacity: .05 !important; }
+[data-theme="light"] .fx-bg-overlay { background: linear-gradient(180deg, rgba(255,255,255,.4), rgba(238,241,248,.95)) !important; }
+[data-theme="light"] .fx-bg-particles { opacity: .3; }
+
+/* sidebar */
+[data-theme="light"] .fx-side { background: rgba(255,255,255,.85) !important; border-color: rgba(15,23,42,.09) !important; }
+[data-theme="light"] .fx-side .brand { color: #0f172a !important; -webkit-text-fill-color: initial; }
+[data-theme="light"] .fx-side .side-item { color: #334155 !important; }
+[data-theme="light"] .fx-side .side-item.active { background: linear-gradient(135deg, #eef2ff, #e6e2ff) !important; color: #065f46 !important; }
+[data-theme="light"] .fx-side .side-tag { color: rgba(51,65,85,.6) !important; }
+[data-theme="light"] .fx-side .side-user b { color: #0f172a !important; }
+[data-theme="light"] .fx-side .side-user small { color: rgba(51,65,85,.6) !important; }
+[data-theme="light"] .avatar { background: linear-gradient(135deg, #10b981, #f5b942) !important; }
+
+/* top bar + inputs */
+[data-theme="light"] .header-btn, [data-theme="light"] .currency-select, [data-theme="light"] .search-input {
+  background: rgba(255,255,255,.92) !important; color: #1e293b !important; border-color: rgba(15,23,42,.14) !important;
+}
+[data-theme="light"] .search-input::placeholder { color: #94a3b8; }
+
+/* hero card */
+[data-theme="light"] .fx-hero { background: rgba(255,255,255,.8) !important; border-color: rgba(15,23,42,.08) !important; box-shadow: 0 18px 46px rgba(30,41,90,.1) !important; }
+[data-theme="light"] .fx-hero .hero-kicker { color: #b45309 !important; }
+[data-theme="light"] .fx-hero .hero-num { background: linear-gradient(120deg, #0f172a, #047857 70%, #0d9488) !important; -webkit-background-clip: text; background-clip: text; }
+[data-theme="light"] .hero-chip { background: rgba(238,242,255,.8) !important; color: #334155 !important; border-color: rgba(15,23,42,.08) !important; }
+
+/* stat cards */
+[data-theme="light"] .stat-label { color: #475569 !important; }
+[data-theme="light"] .stat-icon { color: #047857 !important; }
+[data-theme="light"] .stat-value { background: linear-gradient(120deg, #0f172a, #065f46) !important; -webkit-background-clip: text; background-clip: text; }
+[data-theme="light"] .fx-bento h2, [data-theme="light"] .fx-bento h3 { color: #0f172a !important; }
+
+/* expense list */
+[data-theme="light"] .expense-list li { background: rgba(255,255,255,.85) !important; border-color: rgba(15,23,42,.07) !important; box-shadow: 0 2px 12px rgba(15,23,42,.06) !important; }
+[data-theme="light"] .expense-desc { color: #0f172a !important; }
+[data-theme="light"] .expense-meta { color: #64748b !important; }
+[data-theme="light"] .expense-amount { color: #065f46 !important; }
+
+/* modals, insights, misc */
+[data-theme="light"] .modal { background: #fff !important; color: #1e293b !important; border-color: rgba(15,23,42,.1) !important; box-shadow: 0 30px 80px rgba(15,23,42,.18) !important; }
+[data-theme="light"] .modal h2 { color: #0f172a !important; }
+[data-theme="light"] .modal label { color: #475569 !important; }
+[data-theme="light"] .modal input, [data-theme="light"] .modal select { background: #f8fafc !important; color: #0f172a !important; border-color: rgba(15,23,42,.14) !important; }
+[data-theme="light"] .modal-hint { color: #64748b !important; }
+[data-theme="light"] .insight-item { color: #334155 !important; background: rgba(238,242,255,.6) !important; border-color: rgba(79,70,229,.15) !important; }
+[data-theme="light"] .empty-state { color: #64748b !important; }
+[data-theme="light"] .footer, [data-theme="light"] .footer a { color: #64748b !important; }
+[data-theme="light"] .form-section input, [data-theme="light"] .form-section select, [data-theme="light"] .expense-form input, [data-theme="light"] .expense-form select { background: #fff !important; color: #1e293b !important; border-color: rgba(15,23,42,.14) !important; }
+[data-theme="light"] .list-header h2, [data-theme="light"] .chart-box h2 { color: #0f172a !important; }
+[data-theme="light"] #ultra-chip { background: rgba(255,255,255,.9); color: #065f46; border-color: rgba(79,70,229,.35); }
+[data-theme="light"] ::-webkit-scrollbar-thumb { background: linear-gradient(180deg, rgba(16,185,129,.45), rgba(124,58,237,.45)); }
+
+/* FitTrack specifics */
+[data-theme="light"] .tab { background: rgba(15,23,42,.05) !important; color: #334155 !important; }
+[data-theme="light"] .tab.active { background: linear-gradient(135deg, #e84545, #ff8e53) !important; color: #fff !important; }
+[data-theme="light"] .history-card, [data-theme="light"] .form-card, [data-theme="light"] .bmi-section, [data-theme="light"] .goal-section, [data-theme="light"] .breakdown-section {
+  background: rgba(255,255,255,.85) !important; color: #1e293b !important; border-color: rgba(15,23,42,.08) !important;
+}
+[data-theme="light"] .btn-small { background: #fff !important; color: #334155 !important; }
+[data-theme="light"] .btn-log { background: linear-gradient(135deg, #e84545, #ff8e53) !important; color: #fff !important; }

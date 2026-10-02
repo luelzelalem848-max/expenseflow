@@ -2,7 +2,7 @@
    ExpenseFlow — full-page login screen (v5, from scratch)
    ================================================================ */
 :root {
-  --a: #818cf8; --b: #c084fc; --gold: #f5b942;
+  --a: #34d399; --b: #f5b942; --gold: #f5b942;
   --bg: #04070f; --txt: #eef1fa; --dim: rgba(238,241,250,.55);
   --line: rgba(255,255,255,.12);
   --display: 'Clash Display','Space Grotesk','Inter';
@@ -38,7 +38,7 @@ body {
 .lg-brand { max-width: 560px; }
 .lg-brand-logo {
   font-size: 2.6rem;
-  filter: drop-shadow(0 0 26px rgba(129,140,248,0.55));
+  filter: drop-shadow(0 0 26px rgba(52,211,153,0.55));
   animation: lg-float 4s ease-in-out infinite;
 }
 @keyframes lg-float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
@@ -90,9 +90,9 @@ body {
 .lg-logo {
   width: 72px; height: 72px; margin: 0 auto 1.1rem;
   display: grid; place-items: center; font-size: 2rem; border-radius: 22px;
-  background: linear-gradient(135deg, rgba(129,140,248,0.44), rgba(192,132,252,0.33));
+  background: linear-gradient(135deg, rgba(52,211,153,0.44), rgba(245,185,66,0.33));
   border: 1px solid rgba(255,255,255,.18);
-  box-shadow: 0 18px 44px rgba(129,140,248,0.55), inset 0 1px 0 rgba(255,255,255,.25);
+  box-shadow: 0 18px 44px rgba(52,211,153,0.55), inset 0 1px 0 rgba(255,255,255,.25);
 }
 .lg-title { font-size: 1.7rem; font-weight: 700; letter-spacing: -.4px; }
 .lg-sub { color: var(--dim); font-size: .92rem; margin: .5rem 0 1.6rem; line-height: 1.5; }
@@ -106,7 +106,7 @@ body {
 .lg-input:focus {
   outline: none; border-color: var(--a);
   background: rgba(255,255,255,.09);
-  box-shadow: 0 0 0 3px rgba(129,140,248,0.22), 0 0 30px rgba(129,140,248,0.44);
+  box-shadow: 0 0 0 3px rgba(52,211,153,0.22), 0 0 30px rgba(52,211,153,0.44);
 }
 .lg-error {
   color: #ff8fa3; font-size: .8rem; letter-spacing: .4px;
@@ -119,10 +119,10 @@ body {
   border: none; border-radius: 16px; cursor: pointer;
   font: inherit; font-weight: 600; font-size: 1.02rem; letter-spacing: .4px; color: #fff;
   background: linear-gradient(135deg, var(--a), var(--b));
-  box-shadow: 0 16px 40px rgba(129,140,248,0.55), inset 0 1px 0 rgba(255,255,255,.3);
+  box-shadow: 0 16px 40px rgba(52,211,153,0.55), inset 0 1px 0 rgba(255,255,255,.3);
   transition: transform .25s, box-shadow .25s;
 }
-.lg-cta:hover { transform: translateY(-2px); box-shadow: 0 22px 52px rgba(129,140,248,0.66), inset 0 1px 0 rgba(255,255,255,.3); }
+.lg-cta:hover { transform: translateY(-2px); box-shadow: 0 22px 52px rgba(52,211,153,0.66), inset 0 1px 0 rgba(255,255,255,.3); }
 .lg-cta:active { transform: scale(.98); }
 .lg-cta::after {
   content: ''; position: absolute; top: 0; left: -80%; width: 45%; height: 100%;

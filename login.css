@@ -24,7 +24,7 @@
   border-radius: 24px;
   background: linear-gradient(160deg, rgba(16,20,36,.88), rgba(10,12,24,.92));
   border: 1px solid rgba(255,255,255,.12);
-  box-shadow: 0 30px 80px rgba(0,0,0,.6), 0 0 60px #818cf822, inset 0 1px 0 rgba(255,255,255,.08);
+  box-shadow: 0 30px 80px rgba(0,0,0,.6), 0 0 60px #34d39922, inset 0 1px 0 rgba(255,255,255,.08);
   text-align: center;
   font-family: 'Segoe UI', system-ui, sans-serif;
   animation: fx-gate-pop .7s cubic-bezier(.18,.89,.32,1.28) both;
@@ -46,7 +46,7 @@
   border-radius: 25px;
   padding: 1.5px;
   background: conic-gradient(from var(--fx-ang, 0deg),
-    transparent 0%, transparent 25%, #818cf8 42%, #f5b942 50%, #c084fc 58%, transparent 75%, transparent 100%);
+    transparent 0%, transparent 25%, #34d399 42%, #f5b942 50%, #f5b942 58%, transparent 75%, transparent 100%);
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
           mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
@@ -61,7 +61,7 @@
   line-height: 1;
   display: inline-block;
   animation: fx-logo-float 3.2s ease-in-out infinite;
-  filter: drop-shadow(0 0 18px #818cf8aa);
+  filter: drop-shadow(0 0 18px #34d399aa);
 }
 @keyframes fx-logo-float {
   0%, 100% { transform: translateY(0) rotate(-3deg); }
@@ -73,7 +73,7 @@
   font-size: 1.7rem;
   font-weight: 700;
   letter-spacing: .5px;
-  background: linear-gradient(110deg, #818cf8, #c084fc 55%, #f5b942);
+  background: linear-gradient(110deg, #34d399, #f5b942 55%, #f5b942);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -106,12 +106,12 @@
   font-size: 1rem;
   font-weight: 700;
   color: #fff;
-  background: linear-gradient(135deg, #818cf8, #c084fc);
+  background: linear-gradient(135deg, #34d399, #f5b942);
   background-size: 160% auto;
-  box-shadow: 0 10px 30px #818cf855, inset 0 1px 0 rgba(255,255,255,.25);
+  box-shadow: 0 10px 30px #34d39955, inset 0 1px 0 rgba(255,255,255,.25);
   transition: background-position .35s, transform .25s, box-shadow .25s;
 }
-.fx-gate-cta:hover { background-position: 100% center; transform: translateY(-2px); box-shadow: 0 14px 38px #818cf877; }
+.fx-gate-cta:hover { background-position: 100% center; transform: translateY(-2px); box-shadow: 0 14px 38px #34d39977; }
 .fx-gate-cta:active { transform: translateY(0) scale(.98); }
 
 .fx-gate-error {
