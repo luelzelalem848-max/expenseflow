@@ -1,6 +1,15 @@
-// ====== ExpenseFlow v4 — Edit, Stats, Signed PDF ======
+// =====================================================================
+// ExpenseFlow — app.js
+// This one file runs the whole app. Reading order, top to bottom:
+//   1. Settings and data (the list of expenses lives in the `expenses` array)
+//   2. Helpers: money formatting, currency conversion, theme, saving
+//   3. "render" functions: they draw the numbers, charts and list on screen
+//   4. Actions: add, edit, delete, download PDF
+//   5. Event listeners: they connect buttons on the page to the functions
+// Everything is saved in the browser's localStorage, so nothing leaves your device.
+// =====================================================================
 
-/* ---- v6 premium chart defaults ---- */
+// Colors and fonts that Chart.js uses for every chart (only runs if the Chart.js library loaded)
 if (window.Chart) {
   Chart.defaults.font.family = "'Space Grotesk', sans-serif";
   Chart.defaults.color = 'rgba(255,255,255,.55)';
@@ -57,11 +66,10 @@ const categoryOptions = [
   ['Other','📦 Other'],['Business','💼 Business'],['Fees','🏦 Fees'],['Taxes','🏛️ Taxes']
 ];
 
-// ---- Load/Save ----
-
 // ---- Live exchange rates (auto-refresh, offline fallback) ----
 const FALLBACK_RATES = { USD: 1, ETB: 122, EUR: 0.85, GBP: 0.74, JPY: 150, INR: 83.5, KES: 129, NGN: 1550, AED: 3.67, SAR: 3.75 };
 let RATES = Object.assign({}, FALLBACK_RATES);
+// Gets today's exchange rates from the internet (saved for 12 hours). If that fails, it uses the built-in FALLBACK_RATES so the app still works offline.
 function loadRates() {
   try {
     const cached = JSON.parse(localStorage.getItem('expenseflow_rates') || 'null');
@@ -75,9 +83,12 @@ function loadRates() {
     }
   }).catch(function () {});
 }
+// Converts an amount from one currency to the currency selected right now. Example: cv(10, 'USD') gives the amount in ETB if ETB is selected.
 function cv(amount, from) { const f = RATES[from] || 1, t = RATES[currentCurrency] || 1; return amount * (t / f); }
+// Returns one expense's amount converted into the currently selected currency.
 function amt(e) { return cv(e.amount, e.currency || currentCurrency); }
 
+// Runs once when the page opens: reads saved expenses, currency and name from localStorage and puts them back on the page.
 function loadAll() {
   const savedExp = localStorage.getItem(STORAGE_KEY);
   if (savedExp) { try { expenses = JSON.parse(savedExp); } catch(e) { expenses = []; } }
@@ -91,26 +102,34 @@ function loadAll() {
   document.getElementById('footerName').textContent = userName;
 }
 
+// Saves the whole expenses list into localStorage (as text) so it is still there after a refresh.
 function saveExpenses() { localStorage.setItem(STORAGE_KEY, JSON.stringify(expenses)); }
+// Saves the name used for the PDF signature and shows it in the footer.
 function saveName() { localStorage.setItem(NAME_KEY, userName); document.getElementById('footerName').textContent = userName; }
 
 // ---- Format ----
+// Turns a number into text with the currency symbol, e.g. 1234.5 becomes "$1,234.50".
 function formatMoney(amount) {
   const c = currencies[currentCurrency];
   if (currentCurrency === 'JPY') return c.symbol + Math.round(amount).toLocaleString('en-US');
   return c.symbol + amount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 }
 
+// Turns a saved date (like 2026-10-10T08:00:00Z) into readable text, e.g. "Oct 10, 2026".
 function formatDate(iso) { return new Date(iso).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }); }
+// Makes user text safe before it goes into the page, so someone typing <b> or a script cannot break the page.
 function escapeHtml(text) { const d = document.createElement('div'); d.textContent = text; return d.innerHTML; }
 
 // ---- Theme ----
+// Sets dark or light mode from what was saved last time (dark by default).
 function loadTheme() { applyTheme(localStorage.getItem(THEME_KEY) || 'dark'); }
+// Switches the page to "dark" or "light", updates the button icon, and redraws the charts with matching colors.
 function applyTheme(theme) {
   document.documentElement.setAttribute('data-theme', theme);
   document.getElementById('themeIcon').textContent = theme === 'light' ? '🌙' : '☀️';
   renderCharts();
 }
+// Called by the Theme button: flips between dark and light and remembers the choice.
 function toggleTheme() {
   const cur = document.documentElement.getAttribute('data-theme');
   const next = cur === 'light' ? 'dark' : 'light';
@@ -118,6 +137,7 @@ function toggleTheme() {
 }
 
 // ---- Chart Colors ----
+// Gives the charts the right grid/text colors for the current theme, plus the list of bar colors.
 function chartColors() {
   const isLight = document.documentElement.getAttribute('data-theme') === 'light';
   return isLight
@@ -126,6 +146,7 @@ function chartColors() {
 }
 
 // ---- Stats ----
+// Calculates and shows the numbers: total spent, this month, active days, entries, average, daily average, biggest expense, top category.
 function renderStats() {
   const total = expenses.reduce((s, e) => s + amt(e), 0);
   document.getElementById('totalSpent').textContent = formatMoney(total);
@@ -168,6 +189,7 @@ function renderStats() {
 }
 
 // ---- Insights ----
+// Writes the "Spending Insights" sentences: biggest category, daily average, this month vs last month, second biggest category, and biggest single expense.
 function renderInsights() {
   const list = document.getElementById('insightsList');
   if (expenses.length === 0) { list.innerHTML = '<li class="insight-item">Add some expenses to see insights!</li>'; return; }
@@ -224,6 +246,7 @@ function renderInsights() {
 }
 
 // ---- Charts ----
+// Draws the 3 charts with Chart.js: spending by category, the last 7 days trend, and the category breakdown. Old charts are destroyed first so they do not stack up.
 function renderCharts() {
   const colors = chartColors();
 
@@ -277,6 +300,7 @@ function renderCharts() {
 }
 
 // ---- Render List ----
+// Builds the "Recent Expenses" list (newest first). Applies the search box filter, and shows a message if the list is empty.
 function renderList() {
   const ul = document.getElementById('expenseList');
   if (expenses.length === 0) { ul.innerHTML = '<li class="empty-state">No expenses yet. Add one above! 👆</li>'; return; }
@@ -307,12 +331,14 @@ function renderList() {
 }
 
 // ---- Add Expense ----
+// Creates a new expense object (id, description, amount, currency, category, date), adds it to the list, saves it, and redraws everything.
 function addExpense(desc, amount, cat) {
   expenses.push({ id: Date.now().toString() + Math.random().toString(36).slice(2, 6), description: desc, amount: parseFloat(amount), currency: currentCurrency, category: cat, date: new Date().toISOString() });
   saveExpenses(); renderAll();
 }
 
 // ---- Edit Expense ----
+// Opens the edit window and fills it with the values of the expense you clicked.
 function openEdit(id) {
   const e = expenses.find(x => x.id === id);
   if (!e) return;
@@ -329,11 +355,13 @@ function openEdit(id) {
   document.getElementById('editModal').style.display = 'flex';
 }
 
+// Closes the edit window without saving.
 function closeEdit() {
   editingId = null;
   document.getElementById('editModal').style.display = 'none';
 }
 
+// Called when you press "Save Changes": writes the new description/amount/category/date into that expense, saves, and redraws.
 function saveEdit(e) {
   e.preventDefault();
   if (!editingId) return;
@@ -348,12 +376,14 @@ function saveEdit(e) {
 }
 
 // ---- Delete ----
+// Removes one expense by its id, saves the list, and redraws everything.
 function deleteExpense(id) {
   expenses = expenses.filter(e => e.id !== id);
   saveExpenses(); renderAll();
 }
 
 // ---- PDF Download with Signature ----
+// Builds the PDF report with jsPDF: a header, summary numbers, category breakdown, the table of expenses, and your name as the signature.
 function downloadPDF() {
   if (expenses.length === 0) { alert('No expenses to download. Add some first! 👆'); return; }
 
@@ -489,9 +519,11 @@ function downloadPDF() {
 }
 
 // ---- Render All ----
+// The "redraw everything" button: any time the data changes, this updates the stats, insights, charts and list together.
 function renderAll() { renderStats(); renderInsights(); renderCharts(); renderList(); }
 
-// ---- Event Listeners ----
+// ---- Event Listeners: connect the buttons and forms on the page to the functions above ----
+// "Add" form: read the three fields, create the expense, then clear the form
 document.getElementById('expenseForm').addEventListener('submit', function(e) {
   e.preventDefault();
   const desc = document.getElementById('description').value.trim();
@@ -533,7 +565,7 @@ document.getElementById('profileForm').addEventListener('submit', function(e) {
   document.getElementById('profileModal').style.display = 'none';
 });
 
-// ---- Init ----
+// ---- Start: runs once when the page loads ----
 loadTheme();
 loadAll();
 loadRates();

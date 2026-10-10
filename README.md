@@ -1,55 +1,50 @@
-# 💸 ExpenseFlow — Personal Expense Tracker & Landing Page
+# 💸 ExpenseFlow
 
-A sleek, modern personal expense tracker and landing page that runs entirely in your browser. No backend, no sign-up required — 100% private and stored locally.
+A personal expense tracker that runs fully in your browser. No account, no server, no database. Your data stays on your device.
 
-![ExpenseFlow](https://raw.githubusercontent.com/luelzelalem848-max/expenseflow/main/index.html)
+**Live demo:** https://luelzelalem848-max.github.io/expenseflow/
 
-## ✨ Landing Page Features
-- 🚀 **Stunning Landing Page (`index.html`)** — Glassmorphism dark theme with purple/indigo gradients (`#10b981`)
-- 💫 **Floating Animated Expense Cards** — Dynamic CSS keyframe animations
-- 📜 **Scroll Reveal Animations** — Smooth intersection observer reveals with stagger delay
-- 🔢 **Animated Stat Counters** — Counts up automatically on scroll (50+ Categories, 20 Currencies, 3 Charts, 100% Free)
-- 📱 **Responsive Sticky Navbar** — Glass backdrop blur, smooth scrolling, and mobile menu toggle
+> Built with AI assistance. I (Luel) directed the project, tested it, and cleaned it up so I can explain every part. See [EXPLAIN.md](EXPLAIN.md).
 
-## 📊 App Features (`app.html`)
-- ➕ **Add Expenses** with category, amount, description, and date
-- 📊 **Live Summary Cards** (Total spent, monthly total, average per entry, active days)
-- 📈 **3 Interactive Charts** — Category Doughnut Chart, 7-Day Trend Chart, and Category Breakdown Bar Chart
-- 💡 **Automated Insights** — Instant analysis of top spending habits
-- 🌍 **20 Currencies Supported** (USD, EUR, GBP, ETB, JPY, INR, KES, NGN, AED, SAR, and more)
-- 🌙 **Dark/Light Mode Toggle** — Auto-saves preference
-- 📄 **Signed PDF Report** — Export expenses as a clean PDF table with custom user signature
-- ✏️ **Full Edit & Search Support** — Search and modify any past transaction
-- 💾 **Auto-saves to localStorage** — Your data persists securely in your browser
+## What it does
 
-## Tech Stack
-- HTML5, CSS3 (CSS Variables, Flexbox/Grid, Keyframe Animations, Glassmorphism)
-- Vanilla JavaScript (IntersectionObserver, DOM Manipulation, Canvas Chart.js, jsPDF)
-- Chart.js (CDN) for interactive financial charts
-- jsPDF + AutoTable (CDN) for PDF export
+- Add an expense with a description, an amount and a category (44 categories)
+- Edit or delete any expense, and search by description or category
+- Summary numbers: total spent, this month, active days, number of entries, average per entry, daily average, biggest expense, top category
+- 3 charts: spending by category, the last 7 days, and a category breakdown
+- Spending insights written in plain sentences (biggest category, this month vs last month, and more)
+- 10 currencies: USD, EUR, GBP, ETB, JPY, INR, KES, NGN, AED, SAR
+- Live exchange rates from `open.er-api.com`, with built-in backup rates if the internet fails
+- Dark and light mode (your choice is remembered)
+- Export a PDF report with your name as the signature
+- Everything is saved in your browser's `localStorage`
 
-## How to Run
-1. Clone the repo:
-   ```bash
-   git clone https://github.com/luelzelalem848-max/expenseflow.git
-   ```
-2. Open `index.html` in any browser to view the landing page.
-3. Click **Launch App** or open `app.html` directly to start tracking expenses!
+## Files
 
-Or visit the [Live GitHub Pages Demo](https://luelzelalem848-max.github.io/expenseflow/).
+| File | What it is |
+|------|------------|
+| `index.html` | The one page: a short intro on top, the app below |
+| `style.css` | All the styling (colors, layout, mobile) |
+| `app.js` | All the logic (data, charts, PDF, buttons), with beginner comments |
+| `EXPLAIN.md` | A walk-through of how the app works |
+| `LICENSE` | MIT |
 
-## Project Structure
-```
-ExpenseFlow/
-├── index.html       # Stunning landing page with glassmorphism & animations
-├── landing.css      # Landing page styles (dark glass theme, floating cards, scroll reveals)
-├── landing.js       # Interactivity (IntersectionObserver, scroll reveals, animated counters)
-├── app.html         # Expense tracker application page
-├── style.css        # Expense tracker app styling (dark + light themes)
-├── app.js           # Main app logic (CRUD, charts, currency, theme, PDF export)
-├── README.md        # Documentation
-└── LICENSE          # MIT License
-```
+## Built with
 
-## License
-MIT — Free to use, modify, and share.
+- HTML, CSS and plain JavaScript (no framework, no build step)
+- [Chart.js](https://www.chartjs.org/) for the charts (loaded from a CDN)
+- [jsPDF](https://github.com/parallax/jsPDF) + AutoTable for the PDF (loaded from a CDN)
+
+Because the libraries load from a CDN, you need an internet connection the first time you open it.
+
+## Run it yourself
+
+1. Download or clone this repo
+2. Open `index.html` in your browser
+
+That's it. There is nothing to install.
+
+## Known limits
+
+- Data lives only in one browser on one device. Clearing browser data deletes it.
+- Exchange rates are for display only and are not financial advice.

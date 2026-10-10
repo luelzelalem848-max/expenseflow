@@ -3,128 +3,272 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="A beautiful personal expense tracker with charts, budgets and PDF reports." />
-  <title>ExpenseFlow — Track Your Spending. Own Your Budget.</title>
+  <meta name="description" content="ExpenseFlow: a simple personal expense tracker with charts, 10 currencies and PDF export. Runs fully in your browser." />
+  <title>ExpenseFlow — Personal Expense Tracker</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-  <link href="https://api.fontshare.com/v2/css?f[]=clash-display@500,600,700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="landing-v2.css?v=8" />
-  <link rel="stylesheet" href="ultra.css?v=8" />
-  <link rel="stylesheet" href="fx-pack.css?v=8" />
-  <link rel="stylesheet" href="modern.css?v=8" />
-<script type="speculationrules">{"prefetch":[{"source":"document","where":{"href_matches":"/*"},"eagerness":"conservative"}]}</script>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <!-- Libraries loaded from a CDN: Chart.js draws the charts, jsPDF makes the PDF report -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
 </head>
-<body data-logo="💸" data-marquee="DARK LUXURY ~ BUDGETS ~ LIVE CHARTS ~ PDF REPORTS ~ ZERO ACCOUNTS ~ 100% PRIVATE">
+<body id="top">
 
-  <nav class="nav" id="nav">
-    <a class="nav-logo" href="index.html">💸 <span>ExpenseFlow</span></a>
-    <ul class="nav-links" id="navLinks">
-      <li><a href="#features">Features</a></li>
-      <li><a href="#stats">Why ExpenseFlow</a></li>
-      <li><a href="login.html" class="nav-cta">Launch App</a></li>
-    </ul>
-    <button class="nav-burger" id="burger" aria-label="Menu">☰</button>
-  </nav>
+<!-- ======== INTRO (the old landing page, now just a short header) ======== -->
+<header class="intro">
+  <span class="intro-badge">💸 Personal expense tracker</span>
+  <h1>Spend smart. Own every birr.</h1>
+  <p>Log your spending, see it in charts, and export a PDF report. Your data stays in your browser — no account, no server.</p>
+  <div class="intro-buttons">
+    <a href="#overview" class="btn-main">Open the app ↓</a>
+    <a href="https://github.com/luelzelalem848-max/expenseflow" target="_blank" rel="noopener" class="btn-ghost">View on GitHub</a>
+  </div>
+</header>
 
-  <header class="hero3d">
-    <video class="fx-video" autoplay muted loop playsinline preload="metadata" disablepictureinpicture aria-hidden="true"><source src="assets/bg-video.mp4" type="video/mp4"></video>
-<canvas id="scene3d"></canvas>
-    <div class="hero-inner">
-      <span class="hero-badge rv">💸 Personal finance, reimagined</span>
-      <h1 class="hero-title rv" data-d="1">Spend smart.<br /><span class="stroke">Own every birr.</span></h1>
-      <p class="hero-sub rv" data-d="2">ExpenseFlow turns your daily spending into a cinematic dashboard — charts, budgets and exportable PDF reports, all private on your device.</p>
-      <div class="hero-ctas rv" data-d="3">
-        <a href="login.html" class="btn-primary">Launch App</a>
-        <a href="https://github.com/luelzelalem848-max/expenseflow" target="_blank" rel="noopener" class="btn-ghost">View on GitHub</a>
+<div class="app">
+  <!-- ======== SIDEBAR ======== -->
+  <aside class="sidebar">
+    <div class="brand">💸 <span>ExpenseFlow</span></div>
+    <span class="side-tag">Dashboard</span>
+    <nav>
+      <a href="#overview">📊 Overview</a>
+      <a href="#charts">📈 Analytics</a>
+      <a href="#add">➕ Add Expense</a>
+      <a href="#records">🧾 Records</a>
+    </nav>
+    <div class="side-controls">
+      <button id="profileBtn" class="header-btn" title="Set your name for PDF signature">👤 Your Name</button>
+      <select id="currencySelect" class="currency-select" title="Select currency">
+        <option value="USD">🇺🇸 USD ($)</option>
+        <option value="EUR">🇪🇺 EUR (€)</option>
+        <option value="GBP">🇬🇧 GBP (£)</option>
+        <option value="ETB">🇪🇹 ETB (Br)</option>
+        <option value="JPY">🇯🇵 JPY (¥)</option>
+        <option value="INR">🇮🇳 INR (₹)</option>
+        <option value="KES">🇰🇪 KES (KSh)</option>
+        <option value="NGN">🇳🇬 NGN (₦)</option>
+        <option value="AED">🇦🇪 AED (د.إ)</option>
+        <option value="SAR">🇸🇦 SAR (﷼)</option>
+      </select>
+      <button id="themeToggle" class="header-btn" title="Toggle dark/light mode">
+        <span id="themeIcon">🌙</span> Theme
+      </button>
+      <div class="side-user">
+        <div class="avatar">💸</div>
+        <div>
+          <b>Private budget</b>
+          <small>Local · Private</small>
+        </div>
       </div>
     </div>
-    <div class="scroll-hint">⌄</div>
-  </header>
+  </aside>
 
-  <section class="section" id="features">
-    <span class="kicker rv">Features</span>
-    <h2 class="section-title rv" data-d="1">Everything you need to budget smart</h2>
-    <p class="section-sub rv" data-d="2">Built for speed, clarity and total control over your money — with zero accounts and zero data collection.</p>
-    <div class="bento">
-      <div class="bento-card stat-card b-wide rv" data-d="1">
-  <div class="b-icon"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20v-8"/><path d="M10 20V6"/><path d="M16 20v-9"/><path d="M22 20H2"/></svg></div>
-  <h3>Live charts</h3>
-  <p>Your spending visualised the moment you log it — categories, trends and totals.</p>
-</div>
-      <div class="bento-card stat-card  rv" data-d="2">
-  <div class="b-icon"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2V3z"/><path d="M9 8h6"/><path d="M9 12h4"/></svg></div>
-  <h3>Smart categories</h3>
-  <p>Auto-organised spending across food, transport, bills and more.</p>
-</div>
-      <div class="bento-card stat-card b-tall rv" data-d="3">
-  <div class="b-icon"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h9l5 5v12a2 2 0 0 1-2 2H6V3z"/><path d="M15 3v5h5"/><path d="M9 13h6"/><path d="M9 17h4"/></svg></div>
-  <h3>PDF reports</h3>
-  <p>One-tap export with your signature — perfect for records or sharing.</p>
-</div>
-      <div class="bento-card stat-card  rv" data-d="4">
-  <div class="b-icon"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a14 14 0 0 1 0 18 14 14 0 0 1 0-18z"/></svg></div>
-  <h3>Multi-currency</h3>
-  <p>Switch between ETB, USD, EUR and more instantly.</p>
-</div>
-      <div class="bento-card stat-card b-wide rv" data-d="5">
-  <div class="b-icon"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v5c0 5-3.5 8.5-7 10-3.5-1.5-7-5-7-10V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg></div>
-  <h3>100% private</h3>
-  <p>No account. No cloud. Your data never leaves your device.</p>
-</div>
-      <div class="bento-card stat-card  rv" data-d="1">
-  <div class="b-icon"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 2L4 14h6l-1 8 9-12h-6l1-8z"/></svg></div>
-  <h3>Offline fast</h3>
-  <p>Instant loading, works without internet, dark luxury by default.</p>
-</div>
+  <!-- ======== MAIN ======== -->
+  <main class="main-area">
+    <div class="topbar">
+      <h2>Dashboard</h2>
+      <div class="top-actions">
+        <input type="text" id="searchInput" placeholder="🔍 Search expenses..." class="search-input" />
+        <button id="downloadPdf" class="btn-pdf" title="Download PDF report">📄 Export PDF</button>
+      </div>
     </div>
-  </section>
 
-  <section class="section" id="stats">
-    <span class="kicker rv">Why ExpenseFlow</span>
-    <h2 class="section-title rv" data-d="1">Numbers that matter</h2>
-    <div class="stats">
-      <div class="stat rv" data-d="1"><b>100%</b><span>Free forever</span></div>
-      <div class="stat rv" data-d="2"><b>0</b><span>Data collected</span></div>
-      <div class="stat rv" data-d="3"><b>1-tap</b><span>PDF export</span></div>
-      <div class="stat rv" data-d="4"><b>∞</b><span>Records supported</span></div>
+    <!-- HERO -->
+    <section class="total-card" id="overview">
+      <span class="total-kicker">💰 Total Spent</span>
+      <div class="total-num" id="totalSpent">$0.00</div>
+      <div class="chip-row">
+        <span class="chip">📅 This Month <b id="monthSpent">$0.00</b></span>
+        <span class="chip">🔥 <b id="activeDays">0</b> Active Days</span>
+        <a href="#add" class="chip chip-cta">➕ New Expense</a>
+      </div>
+    </section>
+
+    <!-- BENTO STATS -->
+    <section class="stats-grid">
+      <div class="stat-card">
+        <span class="stat-icon"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20v-8"/><path d="M10 20V6"/><path d="M16 20v-9"/><path d="M22 20H2"/></svg></span>
+        <span class="stat-label">Entries</span>
+        <span class="stat-value" id="entryCount">0</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-icon"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17l6-6 4 4 7-8"/><path d="M16 7h4v4"/></svg></span>
+        <span class="stat-label">Avg / Entry</span>
+        <span class="stat-value" id="avgSpent">$0.00</span>
+      </div>
+      <div class="stat-card accent-purple">
+        <span class="stat-icon"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18"/><path d="M8 3v4"/><path d="M16 3v4"/></svg></span>
+        <span class="stat-label">Daily Average</span>
+        <span class="stat-value" id="dailyAvg">$0.00</span>
+      </div>
+      <div class="stat-card accent-green">
+        <span class="stat-icon"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 4h8v5a4 4 0 0 1-8 0V4z"/><path d="M8 5H5a3 3 0 0 0 3 4"/><path d="M16 5h3a3 3 0 0 1-3 4"/><path d="M12 13v4"/><path d="M9 21h6"/></svg></span>
+        <span class="stat-label">Biggest Expense</span>
+        <span class="stat-value sm" id="biggestExpense">—</span>
+      </div>
+      <div class="stat-card accent-orange">
+        <span class="stat-icon"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-5-7-11a7 7 0 0 1 14 0c0 6-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></span>
+        <span class="stat-label">Top Category</span>
+        <span class="stat-value sm" id="topCategory">—</span>
+      </div>
+      <div class="stat-card accent-pink">
+        <span class="stat-icon"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v5c0 5-3.5 8.5-7 10-3.5-1.5-7-5-7-10V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg></span>
+        <span class="stat-label">Privacy</span>
+        <span class="stat-value sm">100% On-Device</span>
+      </div>
+    </section>
+
+    <!-- CHARTS -->
+    <section class="charts-section" id="charts">
+      <div class="chart-box">
+        <h3>📊 Spending by Category</h3>
+        <div class="chart-wrap"><canvas id="categoryChart"></canvas></div>
+      </div>
+      <div class="chart-box">
+        <h3>📈 Spending Trend (Last 7 Days)</h3>
+        <div class="chart-wrap"><canvas id="trendChart"></canvas></div>
+      </div>
+      <div class="chart-box">
+        <h3>🥧 Category Breakdown</h3>
+        <div class="chart-wrap"><canvas id="barChart"></canvas></div>
+      </div>
+      <div class="chart-box insights-box">
+        <h3>💡 Spending Insights</h3>
+        <ul id="insightsList" class="insights-list">
+          <li class="insight-item">Add some expenses to see insights!</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ADD FORM -->
+    <section class="form-section" id="add">
+      <h2>➕ Add Expense</h2>
+      <form id="expenseForm" class="expense-form">
+        <input type="text" id="description" placeholder="Description (e.g. Coffee at Starbucks)" required />
+        <input type="number" id="amount" placeholder="Amount" step="0.01" min="0.01" required />
+        <select id="category" required>
+          <option value="">Category</option>
+          <optgroup label="🍔 Food & Drinks">
+            <option value="Food">🍔 Food</option>
+            <option value="Groceries">🛒 Groceries</option>
+            <option value="Restaurants">🍽️ Restaurants</option>
+            <option value="Coffee">☕ Coffee</option>
+            <option value="Drinks">🍺 Drinks & Nightlife</option>
+            <option value="Snacks">🍫 Snacks</option>
+          </optgroup>
+          <optgroup label="🚗 Transport">
+            <option value="Transport">🚗 General Transport</option>
+            <option value="Fuel">⛽ Fuel</option>
+            <option value="Public Transport">🚌 Public Transport</option>
+            <option value="Taxi/Ride">🚕 Taxi / Ride Share</option>
+            <option value="Parking">🅿️ Parking</option>
+          </optgroup>
+          <optgroup label="🛍️ Shopping">
+            <option value="Shopping">🛍️ General Shopping</option>
+            <option value="Clothing">👕 Clothing</option>
+            <option value="Electronics">📱 Electronics</option>
+            <option value="Home">🏠 Home & Furniture</option>
+            <option value="Gifts">🎁 Gifts</option>
+          </optgroup>
+          <optgroup label="📄 Bills & Utilities">
+            <option value="Bills">📄 General Bills</option>
+            <option value="Rent">🏠 Rent</option>
+            <option value="Electricity">⚡ Electricity</option>
+            <option value="Water">💧 Water</option>
+            <option value="Internet">🌐 Internet</option>
+            <option value="Phone">📱 Phone Bill</option>
+            <option value="Insurance">🛡️ Insurance</option>
+            <option value="Subscriptions">🔁 Subscriptions</option>
+          </optgroup>
+          <optgroup label="🎬 Entertainment">
+            <option value="Entertainment">🎬 General Entertainment</option>
+            <option value="Movies">🎥 Movies</option>
+            <option value="Music">🎵 Music</option>
+            <option value="Games">🎮 Games</option>
+            <option value="Sports">⚽ Sports</option>
+            <option value="Travel">✈️ Travel</option>
+          </optgroup>
+          <optgroup label="🏥 Health">
+            <option value="Health">🏥 General Health</option>
+            <option value="Medicine">💊 Medicine</option>
+            <option value="Doctor">👨‍⚕️ Doctor Visit</option>
+            <option value="Gym">💪 Gym & Fitness</option>
+          </optgroup>
+          <optgroup label="🎓 Education">
+            <option value="Education">🎓 General Education</option>
+            <option value="Tuition">🏫 Tuition</option>
+            <option value="Books">📚 Books</option>
+            <option value="Courses">💻 Online Courses</option>
+          </optgroup>
+          <optgroup label="📦 Other">
+            <option value="Personal Care">💄 Personal Care</option>
+            <option value="Charity">❤️ Charity & Donations</option>
+            <option value="Other">📦 Other</option>
+            <option value="Business">💼 Business Expense</option>
+            <option value="Fees">🏦 Bank Fees</option>
+            <option value="Taxes">🏛️ Taxes</option>
+          </optgroup>
+        </select>
+        <button type="submit" class="btn-add">Add</button>
+      </form>
+    </section>
+
+    <!-- EXPENSE LIST -->
+    <section class="list-section" id="records">
+      <div class="list-header">
+        <h2>🧾 Recent Expenses</h2>
+      </div>
+      <ul id="expenseList" class="expense-list">
+        <li class="empty-state">No expenses yet. Add one above! 👆</li>
+      </ul>
+    </section>
+
+    <!-- EDIT MODAL -->
+    <div class="modal-overlay" id="editModal" style="display:none;">
+      <div class="modal">
+        <h2>✏️ Edit Expense</h2>
+        <form id="editForm">
+          <label>Description</label>
+          <input type="text" id="editDescription" required />
+          <label>Amount</label>
+          <input type="number" id="editAmount" step="0.01" min="0.01" required />
+          <small id="editAmountHint" class="modal-hint"></small>
+          <label>Category</label>
+          <select id="editCategory" required></select>
+          <label>Date</label>
+          <input type="date" id="editDate" required />
+          <div class="modal-buttons">
+            <button type="submit" class="btn-save">💾 Save Changes</button>
+            <button type="button" class="btn-cancel" id="closeEdit">✕ Cancel</button>
+          </div>
+        </form>
+      </div>
     </div>
-  </section>
 
-  <section class="section">
-    <div class="cta-card rv">
-      <h2>Ready to own your money?</h2>
-      <p>Launch the dashboard and log your first expense in under a minute.</p>
-      <a href="login.html" class="btn-primary">Enter ExpenseFlow →</a>
+    <!-- PROFILE MODAL -->
+    <div class="modal-overlay" id="profileModal" style="display:none;">
+      <div class="modal">
+        <h2>👤 Your Name (for PDF signature)</h2>
+        <form id="profileForm">
+          <label>Your Name</label>
+          <input type="text" id="userName" placeholder="e.g. Luel Zelalem" maxlength="50" />
+          <p class="modal-hint">This name will appear as a signature on your downloaded PDF reports.</p>
+          <div class="modal-buttons">
+            <button type="submit" class="btn-save">💾 Save Name</button>
+            <button type="button" class="btn-cancel" id="closeProfile">✕ Cancel</button>
+          </div>
+        </form>
+      </div>
     </div>
-  </section>
 
-  <footer>
-    <a class="nav-logo" href="index.html">💸 <span>ExpenseFlow</span></a>
-    <p>Built by <a href="https://github.com/luelzelalem848-max/expenseflow" target="_blank" rel="noopener">Luel Zelalem</a> · 2026 · Free & open source</p>
-  </footer>
+    <footer class="footer">
+      <p><a href="#top">↑ Back to top</a> · Made with 💙 by <span id="footerName">Luel Zelalem</span> — <a href="https://github.com/luelzelalem848-max/expenseflow" target="_blank">View on GitHub</a></p>
+    </footer>
+  </main>
+</div>
 
-  <script src="vendor/three.min.js?v=8"></script>
-  <script src="scene3d.js?v=8"></script>
-  <script src="ultra.js?v=8"></script>
-  <script>
-    // nav scroll state + burger + reveals
-    var nav = document.getElementById('nav');
-    window.addEventListener('scroll', function () {
-      nav.classList.toggle('scrolled', window.scrollY > 30);
-    }, { passive: true });
-    var burger = document.getElementById('burger'), links = document.getElementById('navLinks');
-    burger.addEventListener('click', function () { links.classList.toggle('open'); });
-    links.querySelectorAll('a').forEach(function (a) {
-      a.addEventListener('click', function () { links.classList.remove('open'); });
-    });
-    var io = new IntersectionObserver(function (es) {
-      es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
-    }, { threshold: 0.15 });
-    document.querySelectorAll('.rv').forEach(function (el) { io.observe(el); });
-  </script>
-  <script src="fx-pack.js?v=8"></script>
-  <script>/* pause bg videos when off-screen */(function(){var vs=document.querySelectorAll('.fx-video,.fx-video-fixed');if(!vs.length||!('IntersectionObserver' in window))return;var io=new IntersectionObserver(function(es){es.forEach(function(en){var v=en.target;if(en.isIntersecting){v.play().catch(function(){});}else{v.pause();}});},{threshold:0.05});vs.forEach(function(v){io.observe(v);});})();</script>
-  <script src="modern.js?v=8"></script>
+<script src="app.js"></script>
 </body>
 </html>
