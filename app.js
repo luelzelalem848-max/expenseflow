@@ -11,9 +11,9 @@
 
 // Colors and fonts that Chart.js uses for every chart (only runs if the Chart.js library loaded)
 if (window.Chart) {
-  Chart.defaults.font.family = "'Space Grotesk', sans-serif";
+  Chart.defaults.font.family = "'Segoe UI', system-ui, sans-serif";
   Chart.defaults.color = 'rgba(255,255,255,.55)';
-  Chart.defaults.plugins.tooltip.backgroundColor = 'rgba(8,12,26,.92)';
+  Chart.defaults.plugins.tooltip.backgroundColor = 'rgba(15,18,24,.95)';
   Chart.defaults.plugins.tooltip.borderColor = 'rgba(255,255,255,.14)';
   Chart.defaults.plugins.tooltip.borderWidth = 1;
   Chart.defaults.plugins.tooltip.padding = 12;
@@ -141,8 +141,8 @@ function toggleTheme() {
 function chartColors() {
   const isLight = document.documentElement.getAttribute('data-theme') === 'light';
   return isLight
-    ? { grid: '#e2e8f0', text: '#64748b', barColors: ['#10b981','#22c55e','#f59e0b','#ef4444','#3b82f6','#ec4899','#f5b942','#14b8a6','#f97316','#8b5cf6','#06b6d4','#84cc16'] }
-    : { grid: '#334155', text: '#94a3b8', barColors: ['#10b981','#22c55e','#f59e0b','#ef4444','#3b82f6','#ec4899','#f5b942','#14b8a6','#f97316','#8b5cf6','#06b6d4','#84cc16'] };
+    ? { grid: '#e2e8f0', text: '#64748b', barColors: ['#3b82f6','#f59e0b','#10b981','#ef4444','#8b5cf6','#ec4899','#14b8a6','#f97316','#06b6d4','#84cc16','#6366f1','#eab308'] }
+    : { grid: '#334155', text: '#94a3b8', barColors: ['#3b82f6','#f59e0b','#10b981','#ef4444','#8b5cf6','#ec4899','#14b8a6','#f97316','#06b6d4','#84cc16','#6366f1','#eab308'] };
 }
 
 // ---- Stats ----
@@ -204,13 +204,13 @@ function renderInsights() {
   if (sortedCats.length > 0) {
     const [topName, topAmount] = sortedCats[0];
     const pct = ((topAmount / total) * 100).toFixed(1);
-    insights.push(`📌 Your biggest spending category is <strong>${topName}</strong> at ${formatMoney(topAmount)} (${pct}% of total).`);
+    insights.push(`Your biggest spending category is <strong>${topName}</strong> at ${formatMoney(topAmount)} (${pct}% of total).`);
   }
 
   // Daily average
   const dates = [...new Set(expenses.map(e => e.date.split('T')[0]))];
   const dailyAvg = total / Math.max(dates.length, 1);
-  insights.push(`📊 You spend an average of <strong>${formatMoney(dailyAvg)}</strong> per active day.`);
+  insights.push(`You spend an average of <strong>${formatMoney(dailyAvg)}</strong> per active day.`);
 
   // This month vs last month
   const now = new Date();
@@ -226,21 +226,21 @@ function renderInsights() {
 
   if (lastMonthTotal > 0) {
     const change = ((thisMonth - lastMonthTotal) / lastMonthTotal * 100).toFixed(1);
-    const direction = change > 0 ? '⬆️ up' : '⬇️ down';
-    insights.push(`📅 This month you've spent <strong>${formatMoney(thisMonth)}</strong>, ${direction} ${Math.abs(change)}% vs last month (${formatMoney(lastMonthTotal)}).`);
+    const direction = change > 0 ? 'up' : 'down';
+    insights.push(`This month you've spent <strong>${formatMoney(thisMonth)}</strong>, ${direction} ${Math.abs(change)}% vs last month (${formatMoney(lastMonthTotal)}).`);
   } else if (thisMonth > 0) {
-    insights.push(`📅 You've spent <strong>${formatMoney(thisMonth)}</strong> this month so far.`);
+    insights.push(`You've spent <strong>${formatMoney(thisMonth)}</strong> this month so far.`);
   }
 
   // Category breakdown
   if (sortedCats.length >= 2) {
     const [secondName, secondAmount] = sortedCats[1];
-    insights.push(`🥈 Your second biggest category is <strong>${secondName}</strong> at ${formatMoney(secondAmount)}.`);
+    insights.push(`Your second biggest category is <strong>${secondName}</strong> at ${formatMoney(secondAmount)}.`);
   }
 
   // Biggest single expense
   const biggest = expenses.reduce((a, b) => amt(a) > amt(b) ? a : b);
-  insights.push(`🏆 Your biggest single expense was <strong>${escapeHtml(biggest.description)}</strong> at ${formatMoney(amt(biggest))} on ${formatDate(biggest.date)}.`);
+  insights.push(`Your biggest single expense was <strong>${escapeHtml(biggest.description)}</strong> at ${formatMoney(amt(biggest))} on ${formatDate(biggest.date)}.`);
 
   list.innerHTML = insights.map(i => `<li class="insight-item">${i}</li>`).join('');
 }
@@ -282,7 +282,7 @@ function renderCharts() {
   if (expenses.length > 0) {
     chart2 = new Chart(ctx2, {
       type: 'line',
-      data: { labels: dayLabels, datasets: [{ label: 'Daily Spending', data: dayData, borderColor: '#34d399', fill: true, tension: 0.4, pointRadius: 3, pointHoverRadius: 6, pointBackgroundColor: '#34d399', backgroundColor: function (c) { var g = c.chart.ctx.createLinearGradient(0, 0, 0, 280); g.addColorStop(0, 'rgba(52,211,153,.45)'); g.addColorStop(1, 'rgba(52,211,153,0)'); return g; } }] },
+      data: { labels: dayLabels, datasets: [{ label: 'Daily Spending', data: dayData, borderColor: '#3b82f6', fill: true, tension: 0.4, pointRadius: 3, pointHoverRadius: 6, pointBackgroundColor: '#3b82f6', backgroundColor: 'rgba(59,130,246,.15)' }] },
       options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { labels: { color: colors.text, font: { size: 10 } } } }, scales: { x: { ticks: { color: colors.text, font: { size: 9 } }, grid: { display: false } }, y: { ticks: { color: colors.text, font: { size: 9 } }, grid: { color: 'rgba(255,255,255,.05)' } } } }
     });
   }
@@ -303,7 +303,7 @@ function renderCharts() {
 // Builds the "Recent Expenses" list (newest first). Applies the search box filter, and shows a message if the list is empty.
 function renderList() {
   const ul = document.getElementById('expenseList');
-  if (expenses.length === 0) { ul.innerHTML = '<li class="empty-state">No expenses yet. Add one above! 👆</li>'; return; }
+  if (expenses.length === 0) { ul.innerHTML = '<li class="empty-state">No expenses yet. Add one above.</li>'; return; }
 
   let filtered = expenses.slice().reverse();
   if (searchQuery) {
@@ -313,7 +313,7 @@ function renderList() {
     );
   }
 
-  if (filtered.length === 0) { ul.innerHTML = '<li class="empty-state">No results found. 🔍</li>'; return; }
+  if (filtered.length === 0) { ul.innerHTML = '<li class="empty-state">No results found.</li>'; return; }
 
   ul.innerHTML = filtered.map(e => `
     <li>
@@ -385,7 +385,7 @@ function deleteExpense(id) {
 // ---- PDF Download with Signature ----
 // Builds the PDF report with jsPDF: a header, summary numbers, category breakdown, the table of expenses, and your name as the signature.
 function downloadPDF() {
-  if (expenses.length === 0) { alert('No expenses to download. Add some first! 👆'); return; }
+  if (expenses.length === 0) { alert('No expenses to download. Add some first.'); return; }
 
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF();

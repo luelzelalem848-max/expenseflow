@@ -1,36 +1,39 @@
 /* ================================================================
    ExpenseFlow — style.css
    One stylesheet for the whole site.
+   Flat, simple look: solid colors, one accent, no gradients.
    Sections: 1 Colors  2 Base  3 Intro  4 Layout  5 Cards  6 Form+List
              7 Modals  8 Mobile
    ================================================================ */
 
 /* ---------- 1. COLORS (dark is the default, light is the toggle) ---------- */
 :root {
-  --bg: #0b1020;
-  --panel: rgba(30, 41, 69, 0.65);
-  --panel-solid: #1a2340;
-  --border: rgba(255, 255, 255, 0.1);
-  --input-bg: rgba(255, 255, 255, 0.06);
-  --text: #f1f5f9;
-  --muted: #94a3b8;
-  --primary: #10b981;
-  --accent: #f5b942;
+  --bg: #14171c;
+  --panel: #1c2027;
+  --panel-solid: #1c2027;
+  --border: #2c323b;
+  --input-bg: #14171c;
+  --text: #e8eaed;
+  --muted: #9aa3ad;
+  --primary: #3b82f6;
+  --primary-text: #ffffff;
+  --accent: #3b82f6;
   --danger: #ef4444;
-  --gradient: linear-gradient(135deg, #10b981, #8b5cf6);
-  --shadow: 0 12px 36px rgba(0, 0, 0, 0.35);
-  --radius: 18px;
+  --shadow: none;
+  --radius: 10px;
 }
 
 [data-theme="light"] {
-  --bg: #eef1f8;
-  --panel: rgba(255, 255, 255, 0.9);
+  --bg: #f4f5f7;
+  --panel: #ffffff;
   --panel-solid: #ffffff;
-  --border: rgba(15, 23, 42, 0.1);
+  --border: #dde1e6;
   --input-bg: #ffffff;
-  --text: #0f172a;
-  --muted: #64748b;
-  --shadow: 0 10px 30px rgba(15, 23, 42, 0.1);
+  --text: #1a1d21;
+  --muted: #5f6b7a;
+  --primary: #2563eb;
+  --accent: #2563eb;
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
 /* ---------- 2. BASE ---------- */
@@ -38,16 +41,11 @@
 html { scroll-behavior: smooth; }
 
 body {
-  font-family: 'Space Grotesk', 'Segoe UI', system-ui, sans-serif;
+  font-family: 'Segoe UI', system-ui, sans-serif;
   color: var(--text);
   line-height: 1.6;
   min-height: 100vh;
-  /* the simple gradient that replaced the 3D scene and the video */
-  background:
-    radial-gradient(ellipse 60% 40% at 80% 0%, rgba(16, 185, 129, 0.18), transparent 70%),
-    radial-gradient(ellipse 50% 40% at 10% 100%, rgba(245, 185, 66, 0.12), transparent 70%),
-    var(--bg);
-  background-attachment: fixed;
+  background: var(--bg);
   transition: background-color 0.3s, color 0.3s;
 }
 
@@ -66,7 +64,7 @@ input, select {
 }
 input:focus, select:focus {
   border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.25);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);
 }
 select option, select optgroup { background: var(--panel-solid); color: var(--text); }
 
@@ -89,14 +87,11 @@ button { font: inherit; cursor: pointer; }
   color: var(--muted);
 }
 .intro h1 {
+  color: var(--text);
   font-size: clamp(2.2rem, 6vw, 3.8rem);
   line-height: 1.1;
-  letter-spacing: -1.5px;
+  letter-spacing: -1px;
   margin: 18px 0 14px;
-  background: linear-gradient(120deg, var(--text) 30%, #34d399 75%, var(--accent));
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
 }
 .intro p { color: var(--muted); font-size: 1.05rem; max-width: 560px; margin: 0 auto; }
 .intro-buttons { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 28px; }
@@ -107,9 +102,9 @@ button { font: inherit; cursor: pointer; }
   font-weight: 600;
   transition: transform 0.2s, opacity 0.2s;
 }
-.btn-main { background: var(--gradient); color: #fff; box-shadow: 0 10px 26px rgba(16, 185, 129, 0.35); }
+.btn-main { background: var(--primary); color: #fff; }
 .btn-ghost { border: 1px solid var(--border); color: var(--text); background: var(--input-bg); }
-.btn-main:hover, .btn-ghost:hover { transform: translateY(-2px); }
+.btn-main:hover, .btn-ghost:hover { opacity: 0.9; }
 
 /* ---------- 4. LAYOUT (sidebar + main area) ---------- */
 .app {
@@ -131,16 +126,8 @@ button { font: inherit; cursor: pointer; }
   padding: 1.8rem 1.1rem 1.4rem;
   border-right: 1px solid var(--border);
   background: var(--panel);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
 }
 .brand { font-size: 1.4rem; font-weight: 700; padding: 0 0.4rem; }
-.brand span {
-  background: linear-gradient(120deg, #34d399, var(--accent));
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
 .side-tag { font-size: 0.72rem; color: var(--muted); padding: 0 0.4rem; letter-spacing: 1px; text-transform: uppercase; }
 
 .sidebar nav { display: flex; flex-direction: column; gap: 0.3rem; }
@@ -177,7 +164,7 @@ button { font: inherit; cursor: pointer; }
   width: 38px; height: 38px; flex: none;
   display: grid; place-items: center;
   border-radius: 12px;
-  background: linear-gradient(135deg, #34d399, var(--accent));
+  background: var(--primary);
 }
 .side-user b { display: block; font-size: 0.88rem; }
 .side-user small { font-size: 0.7rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
@@ -193,23 +180,17 @@ button { font: inherit; cursor: pointer; }
   border: 1px solid var(--border);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
 }
 
 .total-card { padding: 2.2rem 2.2rem 2rem; margin-bottom: 1.3rem; }
-.total-kicker { font-size: 0.74rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--accent); }
+.total-kicker { font-size: 0.74rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); }
 .total-num {
   font-size: clamp(2.6rem, 7vw, 4.6rem);
   font-weight: 700;
   line-height: 1;
-  letter-spacing: -2px;
+  letter-spacing: -1px;
   margin: 0.5rem 0 0.8rem;
   font-variant-numeric: tabular-nums;
-  background: linear-gradient(120deg, var(--text) 30%, #34d399 75%, var(--accent));
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
 }
 .chip-row { display: flex; gap: 0.8rem; flex-wrap: wrap; align-items: center; }
 .chip {
@@ -222,7 +203,7 @@ button { font: inherit; cursor: pointer; }
   color: var(--muted);
 }
 .chip b { color: var(--text); }
-.chip-cta { background: var(--gradient); color: #fff; border: none; font-weight: 600; }
+.chip-cta { background: var(--primary); color: #fff; border: none; font-weight: 600; }
 
 .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.1rem; margin-bottom: 1.3rem; }
 .stat-card { padding: 1.1rem 1rem; text-align: center; min-height: 110px; }
@@ -251,7 +232,7 @@ button { font: inherit; cursor: pointer; }
 .expense-form { display: grid; grid-template-columns: 2fr 1fr 1.5fr auto; gap: 10px; }
 
 .btn-add, .btn-pdf, .btn-save {
-  background: var(--gradient);
+  background: var(--primary);
   color: #fff;
   border: none;
   border-radius: 12px;
@@ -259,7 +240,7 @@ button { font: inherit; cursor: pointer; }
   font-weight: 600;
   transition: transform 0.2s, opacity 0.2s;
 }
-.btn-add:hover, .btn-pdf:hover, .btn-save:hover { transform: translateY(-2px); opacity: 0.92; }
+.btn-add:hover, .btn-pdf:hover, .btn-save:hover { opacity: 0.9; }
 .btn-pdf { padding: 9px 18px; font-size: 0.88rem; }
 
 .expense-list { list-style: none; max-height: 420px; overflow-y: auto; }
@@ -296,7 +277,6 @@ button { font: inherit; cursor: pointer; }
   position: fixed; inset: 0; z-index: 100;
   background: rgba(0, 0, 0, 0.6);
   align-items: center; justify-content: center;
-  backdrop-filter: blur(6px);
 }
 .modal { background: var(--panel-solid); padding: 28px; max-width: 420px; width: 90%; }
 .modal h2 { font-size: 1.25rem; margin-bottom: 16px; }

@@ -5,9 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="ExpenseFlow: a simple personal expense tracker with charts, 10 currencies and PDF export. Runs fully in your browser." />
   <title>ExpenseFlow — Personal Expense Tracker</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
   <!-- Libraries loaded from a CDN: Chart.js draws the charts, jsPDF makes the PDF report -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
@@ -18,7 +15,7 @@
 
 <!-- ======== INTRO (the old landing page, now just a short header) ======== -->
 <header class="intro">
-  <span class="intro-badge">💸 Personal expense tracker</span>
+  <span class="intro-badge">Personal expense tracker</span>
   <h1>Spend smart. Own every birr.</h1>
   <p>Log your spending, see it in charts, and export a PDF report. Your data stays in your browser — no account, no server.</p>
   <div class="intro-buttons">
@@ -30,16 +27,16 @@
 <div class="app">
   <!-- ======== SIDEBAR ======== -->
   <aside class="sidebar">
-    <div class="brand">💸 <span>ExpenseFlow</span></div>
+    <div class="brand"><span>ExpenseFlow</span></div>
     <span class="side-tag">Dashboard</span>
     <nav>
-      <a href="#overview">📊 Overview</a>
-      <a href="#charts">📈 Analytics</a>
-      <a href="#add">➕ Add Expense</a>
-      <a href="#records">🧾 Records</a>
+      <a href="#overview">Overview</a>
+      <a href="#charts">Analytics</a>
+      <a href="#add">Add Expense</a>
+      <a href="#records">Records</a>
     </nav>
     <div class="side-controls">
-      <button id="profileBtn" class="header-btn" title="Set your name for PDF signature">👤 Your Name</button>
+      <button id="profileBtn" class="header-btn" title="Set your name for PDF signature">Your Name</button>
       <select id="currencySelect" class="currency-select" title="Select currency">
         <option value="USD">🇺🇸 USD ($)</option>
         <option value="EUR">🇪🇺 EUR (€)</option>
@@ -55,13 +52,6 @@
       <button id="themeToggle" class="header-btn" title="Toggle dark/light mode">
         <span id="themeIcon">🌙</span> Theme
       </button>
-      <div class="side-user">
-        <div class="avatar">💸</div>
-        <div>
-          <b>Private budget</b>
-          <small>Local · Private</small>
-        </div>
-      </div>
     </div>
   </aside>
 
@@ -70,19 +60,19 @@
     <div class="topbar">
       <h2>Dashboard</h2>
       <div class="top-actions">
-        <input type="text" id="searchInput" placeholder="🔍 Search expenses..." class="search-input" />
-        <button id="downloadPdf" class="btn-pdf" title="Download PDF report">📄 Export PDF</button>
+        <input type="text" id="searchInput" placeholder="Search expenses..." class="search-input" />
+        <button id="downloadPdf" class="btn-pdf" title="Download PDF report">Export PDF</button>
       </div>
     </div>
 
     <!-- HERO -->
     <section class="total-card" id="overview">
-      <span class="total-kicker">💰 Total Spent</span>
+      <span class="total-kicker">Total Spent</span>
       <div class="total-num" id="totalSpent">$0.00</div>
       <div class="chip-row">
-        <span class="chip">📅 This Month <b id="monthSpent">$0.00</b></span>
-        <span class="chip">🔥 <b id="activeDays">0</b> Active Days</span>
-        <a href="#add" class="chip chip-cta">➕ New Expense</a>
+        <span class="chip">This Month <b id="monthSpent">$0.00</b></span>
+        <span class="chip"><b id="activeDays">0</b> Active Days</span>
+        <a href="#add" class="chip chip-cta">New Expense</a>
       </div>
     </section>
 
@@ -123,19 +113,19 @@
     <!-- CHARTS -->
     <section class="charts-section" id="charts">
       <div class="chart-box">
-        <h3>📊 Spending by Category</h3>
+        <h3>Spending by Category</h3>
         <div class="chart-wrap"><canvas id="categoryChart"></canvas></div>
       </div>
       <div class="chart-box">
-        <h3>📈 Spending Trend (Last 7 Days)</h3>
+        <h3>Spending Trend (Last 7 Days)</h3>
         <div class="chart-wrap"><canvas id="trendChart"></canvas></div>
       </div>
       <div class="chart-box">
-        <h3>🥧 Category Breakdown</h3>
+        <h3>Category Breakdown</h3>
         <div class="chart-wrap"><canvas id="barChart"></canvas></div>
       </div>
       <div class="chart-box insights-box">
-        <h3>💡 Spending Insights</h3>
+        <h3>Spending Insights</h3>
         <ul id="insightsList" class="insights-list">
           <li class="insight-item">Add some expenses to see insights!</li>
         </ul>
@@ -144,7 +134,7 @@
 
     <!-- ADD FORM -->
     <section class="form-section" id="add">
-      <h2>➕ Add Expense</h2>
+      <h2>Add Expense</h2>
       <form id="expenseForm" class="expense-form">
         <input type="text" id="description" placeholder="Description (e.g. Coffee at Starbucks)" required />
         <input type="number" id="amount" placeholder="Amount" step="0.01" min="0.01" required />
@@ -218,7 +208,7 @@
     <!-- EXPENSE LIST -->
     <section class="list-section" id="records">
       <div class="list-header">
-        <h2>🧾 Recent Expenses</h2>
+        <h2>Recent Expenses</h2>
       </div>
       <ul id="expenseList" class="expense-list">
         <li class="empty-state">No expenses yet. Add one above! 👆</li>
@@ -228,7 +218,7 @@
     <!-- EDIT MODAL -->
     <div class="modal-overlay" id="editModal" style="display:none;">
       <div class="modal">
-        <h2>✏️ Edit Expense</h2>
+        <h2>Edit Expense</h2>
         <form id="editForm">
           <label>Description</label>
           <input type="text" id="editDescription" required />
@@ -240,8 +230,8 @@
           <label>Date</label>
           <input type="date" id="editDate" required />
           <div class="modal-buttons">
-            <button type="submit" class="btn-save">💾 Save Changes</button>
-            <button type="button" class="btn-cancel" id="closeEdit">✕ Cancel</button>
+            <button type="submit" class="btn-save">Save Changes</button>
+            <button type="button" class="btn-cancel" id="closeEdit">Cancel</button>
           </div>
         </form>
       </div>
@@ -250,14 +240,14 @@
     <!-- PROFILE MODAL -->
     <div class="modal-overlay" id="profileModal" style="display:none;">
       <div class="modal">
-        <h2>👤 Your Name (for PDF signature)</h2>
+        <h2>Your Name (for PDF signature)</h2>
         <form id="profileForm">
           <label>Your Name</label>
           <input type="text" id="userName" placeholder="e.g. Luel Zelalem" maxlength="50" />
           <p class="modal-hint">This name will appear as a signature on your downloaded PDF reports.</p>
           <div class="modal-buttons">
-            <button type="submit" class="btn-save">💾 Save Name</button>
-            <button type="button" class="btn-cancel" id="closeProfile">✕ Cancel</button>
+            <button type="submit" class="btn-save">Save Name</button>
+            <button type="button" class="btn-cancel" id="closeProfile">Cancel</button>
           </div>
         </form>
       </div>
